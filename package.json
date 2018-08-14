@@ -1,0 +1,37 @@
+{
+  "name": "ostoslista",
+  "version": "1.0.0",
+  "description": "Implementation of a shopping list",
+  "author": "Rauli Laine <rauli.laine@iki.fi> (https://raulil.github.io/)",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --mode production",
+    "watch": "webpack --mode development --watch",
+    "start": "node ./backend/index.js"
+  },
+  "engines": {
+    "node": ">=8.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "debug": "^3.1.0",
+    "express": "^4.16.3",
+    "normalize-port": "^1.0.0",
+    "pug": "^2.0.3",
+    "redis": "^2.8.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "bulma": "^0.7.1",
+    "css-loader": "^1.0.0",
+    "lodash": "^4.17.10",
+    "node-sass": "^4.9.3",
+    "redom": "^3.12.7",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.22.1",
+    "sweetalert": "^2.1.0",
+    "webpack": "^4.16.5",
+    "webpack-command": "^0.4.1"
+  }
+}
