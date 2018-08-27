@@ -21,7 +21,7 @@ const handleError = (res, err) => {
 router.get('/', (req, res) => (
   Item.list(redisClient)
     .then((items) => res.status(200).json(items))
-    .catch((err) => handleError(err, res))
+    .catch((err) => handleError(res, err))
 ));
 
 router.put('/', (req, res) => (
