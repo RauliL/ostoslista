@@ -30,7 +30,11 @@ port with `PORT` environment variable. Redis is assumed to be running on
 `localhost` at default Redis port by default, however this can be customized
 with environment variable `REDIS_URL`.
 
+## Attributions
+
+Icon made by [Freepik] from [www.flaticon.com](https://www.flaticon.com).
+
 [Redis]: https://redis.io
 [RE:DOM]: https://redom.js.org
 [Bulma]: https://bulma.io
-
+[Freepik]: https://www.flaticon.com/authors/freepik
