@@ -1,7 +1,7 @@
 {
   "name": "ostoslista",
-  "version": "1.0.0",
-  "description": "Implementation of a shopping list",
+  "version": "1.0.1",
+  "description": "Shopping list Web application",
   "author": "Rauli Laine <rauli.laine@iki.fi> (https://raulil.github.io/)",
   "license": "MIT",
   "scripts": {
