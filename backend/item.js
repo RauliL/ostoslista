@@ -63,6 +63,7 @@ const list = (redisClient) => new Promise((resolve, reject) => {
   redisClient.lrange(KEY_PREFIX, 0, -1, (err, ids) => {
     if (err) {
       reject(error(500, 'Unable to retrieve items from the server.'));
+      return;
     }
 
     Promise.all(ids.map((id) => get(redisClient, id)))
