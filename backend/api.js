@@ -48,6 +48,6 @@ router.patch('/:id', (req, res) => (
 
 router.delete('/:id', (req, res) => (
   Item.delete(redisClient, req.params.id)
-    .then((item) => res.status(200).json({ id: req.params.id }))
+    .then(() => res.status(200).json({ id: req.params.id }))
     .catch((err) => handleError(res, err))
 ));
