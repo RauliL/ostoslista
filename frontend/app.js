@@ -9,29 +9,32 @@ import storage from './storage';
 export default class App {
   constructor () {
     this.el = el('',
-      el('nav.nav-extended',
-        el('.nav-wrapper',
-          el('a.brand-logo',
-            { href: '#' },
-            el('i.material-icons', 'shopping_cart'),
-            'Ostoslista'
+      el('.navbar-fixed',
+        { style: { height: '112px' } },
+        el('nav.nav-extended',
+          el('.nav-wrapper',
+            el('a.brand-logo',
+              { href: '#' },
+              el('i.material-icons', 'shopping_cart'),
+              'Ostoslista'
+            ),
+            el('ul.right',
+              el('li', this.addButton = el('a', el('i.material-icons', 'add')))
+            ),
           ),
-          el('ul.right',
-            el('li', this.addButton = el('a', el('i.material-icons', 'add')))
-          ),
-        ),
-        el('.nav-content',
-          this.tabContainer = el('ul.tabs.tabs-transparent',
-            el('li.tab', el('a.active',
-              { href: '#todo' },
-              'ToDo',
-              el('i.material-icons.left', 'check_box_outline_blank')
-            )),
-            el('li.tab', el('a',
-              { href: '#done' },
-              'Done',
-              el('i.material-icons.left', 'check_box')
-            ))
+          el('.nav-content',
+            this.tabContainer = el('ul.tabs.tabs-transparent',
+              el('li.tab', el('a.active',
+                { href: '#todo' },
+                'ToDo',
+                el('i.material-icons.left', 'check_box_outline_blank')
+              )),
+              el('li.tab', el('a',
+                { href: '#done' },
+                'Done',
+                el('i.material-icons.left', 'check_box')
+              ))
+            )
           )
         )
       ),
