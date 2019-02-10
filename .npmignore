@@ -1,0 +1,8 @@
+/.dockerignore
+/.editorconfig
+/Dockerfile
+/docker-compose.yml
+/frontend
+/node_modules
+/webpack.config.js
+*.tgz

@@ -15,7 +15,8 @@
   "scripts": {
     "build": "webpack --mode production",
     "watch": "webpack --mode development --watch",
-    "start": "node ./backend/index.js"
+    "start": "node ./backend/index.js",
+    "prepack": "npm run build"
   },
   "engines": {
     "node": ">=8.0"
