@@ -7,18 +7,27 @@ import storage from './storage';
  */
 export default class Item {
   constructor () {
-    this.el = el('li.collection-item.avatar.valign-wrapper',
-      this.toggleButton = el('a.btn-flat.circle',
-        this.icon = el('i.material-icons', 'check_box_outline_blank')
+    this.el = el('li.collection-item.row.valign-wrapper',
+      el('.col.s2.l1',
+        this.toggleButton = el('a.btn-flat',
+          {
+            style: {
+              paddingLeft: 0,
+              paddingRight: 0
+            }
+          },
+          this.icon = el('i.material-icons', 'check_box_outline_blank')
+        ),
       ),
-      this.mainContainer = el('span.title',
-        { style: 'width: 100%' },
+      this.mainContainer = el('.col.s8.l10',
         this.textContainer = el('span', {
           style: 'width: 100%; display: inline-block'
         })
       ),
-      this.deleteButton = el('a.btn.red.secondary-content',
-        el('i.material-icons', 'delete')
+      el('.col.s2.l1',
+        this.deleteButton = el('a.btn.red',
+          el('i.material-icons', 'delete')
+        )
       )
     );
 
