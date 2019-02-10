@@ -86,10 +86,20 @@ export default class Item {
       mount(this.mainContainer, this.textContainer);
       this.text = newValue;
 
-      if (oldValue !== newValue) {
-        storage.dispatchEvent(new CustomEvent(this.id ? 'update' : 'create', {
+      if (this.id) {
+        // Only update existing items when the text has changed.
+        if (oldValue !== newValue) {
+          storage.dispatchEvent(new CustomEvent('update', {
+            detail: {
+              id: this.id,
+              done: this.isDone,
+              text: newValue
+            }
+          }));
+        }
+      } else {
+        storage.dispatchEvent(new CustomEvent('create', {
           detail: {
-            id: this.id,
             done: this.isDone,
             text: newValue
           }

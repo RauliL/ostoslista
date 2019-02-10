@@ -59,6 +59,13 @@ export default class App {
     storage.addEventListener('create', (ev) => {
       const item = ev.detail;
 
+      // Do not allow creation of empty items.
+      if (/^\s*$/.test(item.text)) {
+        this.items = this.items.filter((i) => i.id);
+        this.updateItemLists();
+        return;
+      }
+
       apiClient.put('/', item)
         .then((response) => {
           this.items.push({
