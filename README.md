@@ -2,7 +2,7 @@
 
 Simple shopping list Web application, in which a single shopping list can be
 shared among family members. Uses [Redis] as storage, while the UI has been
-implemented with [RE:DOM] and [Bulma].
+implemented with [RE:DOM] and [Materialize].
 
 ## Requirements
 
@@ -36,5 +36,5 @@ Icon made by [Freepik] from [www.flaticon.com](https://www.flaticon.com).
 
 [Redis]: https://redis.io
 [RE:DOM]: https://redom.js.org
-[Bulma]: https://bulma.io
+[Materialize]: https://materializecss.com
 [Freepik]: https://www.flaticon.com/authors/freepik
