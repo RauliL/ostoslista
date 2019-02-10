@@ -1,6 +1,6 @@
-import { partition } from 'lodash';
+import { escape, partition } from 'lodash';
+import M from 'materialize-css';
 import { el, list, mount } from 'redom';
-import swal from 'sweetalert';
 
 import apiClient from './api';
 import Item from './item';
@@ -8,21 +8,46 @@ import storage from './storage';
 
 export default class App {
   constructor () {
-    this.el = el('section.section',
-      el('.field', el('.control',
-        this.addButton = el('button.button',
-          el('span.icon.is-small', el('i.fas.fa-plus')),
-          el('span', 'Add new item')
+    this.el = el('',
+      el('nav.nav-extended',
+        el('.nav-wrapper',
+          el('a.brand-logo',
+            { href: '#' },
+            el('i.material-icons', 'shopping_cart'),
+            'Ostoslista'
+          ),
+          el('ul.right',
+            el('li', this.addButton = el('a', el('i.material-icons', 'add')))
+          ),
+        ),
+        el('.nav-content',
+          this.tabContainer = el('ul.tabs.tabs-transparent',
+            el('li.tab', el('a.active',
+              { href: '#todo' },
+              'ToDo',
+              el('i.material-icons.left', 'check_box_outline_blank')
+            )),
+            el('li.tab', el('a',
+              { href: '#done' },
+              'Done',
+              el('i.material-icons.left', 'check_box')
+            ))
+          )
         )
-      )),
-      this.todoList = list('.panel', Item, 'id'),
-      this.doneList = list('.panel', Item, 'id')
+      ),
+      el('.container',
+        this.todoList = list('ul.collection#todo', Item, 'id'),
+        this.doneList = list('ul.collection#done', Item, 'id')
+      )
     );
 
     this.addButton.addEventListener('click', (ev) => {
       const item = new Item();
 
       ev.preventDefault();
+      if (this.tabs) {
+        this.tabs.select('todo');
+      }
       mount(this.todoList, item);
       item.onEdit();
     });
@@ -33,6 +58,13 @@ export default class App {
   onmount () {
     storage.addEventListener('create', (ev) => {
       const item = ev.detail;
+
+      // Do not allow creation of empty items.
+      if (/^\s*$/.test(item.text)) {
+        this.items = this.items.filter((i) => i.id);
+        this.updateItemLists();
+        return;
+      }
 
       apiClient.put('/', item)
         .then((response) => {
@@ -45,9 +77,26 @@ export default class App {
         })
         .catch((err) => {
           console.error(err);
-          swal({
-            icon: 'error',
-            text: `${err}`
+          M.toast({
+            html: escape(`${err}`),
+            classes: 'red'
+          });
+        });
+    });
+
+    storage.addEventListener('delete', (ev) => {
+      const id = ev.detail;
+
+      apiClient.delete(`/${id}`)
+        .then((response) => {
+          this.items = this.items.filter((item) => item.id !== id);
+          this.updateItemLists();
+        })
+        .catch((err) => {
+          console.error(err);
+          M.toast({
+            html: escape(`${err}`),
+            classes: 'red'
           });
         });
     });
@@ -66,26 +115,9 @@ export default class App {
         })
         .catch((err) => {
           console.error(err);
-          swal({
-            icon: 'error',
-            text: `${err}`
-          });
-        });
-    });
-
-    storage.addEventListener('delete', (ev) => {
-      const id = ev.detail;
-
-      apiClient.delete(`/${id}`)
-        .then((response) => {
-          this.items = this.items.filter((item) => item.id !== id);
-          this.updateItemLists();
-        })
-        .catch((err) => {
-          console.error(err);
-          swal({
-            icon: 'error',
-            text: `${err}`
+          M.toast({
+            html: escape(`${err}`),
+            classes: 'red'
           });
         });
     });
@@ -101,11 +133,20 @@ export default class App {
       })
       .catch((err) => {
         console.error(err);
-        swal({
-          icon: 'error',
-          text: 'Unable to connect to the server.'
+        M.toast({
+          html: 'Unable to connect to the server.',
+          classes: 'red'
         });
       });
+
+    this.tabs = M.Tabs.init(this.tabContainer);
+  }
+
+  onunmount () {
+    if (this.tabs) {
+      this.tabs.destroy();
+      delete this.tabs;
+    }
   }
 
   updateItemLists () {

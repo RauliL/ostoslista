@@ -7,24 +7,18 @@ import storage from './storage';
  */
 export default class Item {
   constructor () {
-    this.el = el('.panel-block',
-      this.toggleButton = el('button.is-marginless.is-paddingless',
-        {
-          style: {
-            background: 'transparent',
-            border: 'none',
-            outline: 'none',
-            cursor: 'pointer'
-          }
-        },
-        el('span.panel-icon', this.icon = el('i.far.fa-square.fa-fw'))
+    this.el = el('li.collection-item.avatar.valign-wrapper',
+      this.toggleButton = el('a.btn-flat.circle',
+        this.icon = el('i.material-icons', 'check_box_outline_blank')
       ),
-      this.mainContainer = el('',
-        { style: { width: '100%' } },
-        this.textContainer = el('span')
+      this.mainContainer = el('span.title',
+        { style: 'width: 100%' },
+        this.textContainer = el('span', {
+          style: 'width: 100%; display: inline-block'
+        })
       ),
-      this.deleteButton = el('button.button',
-        el('span.icon', el('i.fas.fa-trash-alt'))
+      this.deleteButton = el('a.btn.red.secondary-content',
+        el('i.material-icons', 'delete')
       )
     );
 
@@ -34,30 +28,22 @@ export default class Item {
   }
 
   get isDone () {
-    return this.icon.classList.contains('fa-check-square');
+    return this.icon.innerText === 'check_box';
   }
 
   set isDone (value) {
-    const { classList } = this.icon;
-
-    if (value) {
-      classList.remove('fa-square');
-      classList.add('fa-check-square');
-    } else {
-      classList.remove('fa-check-square');
-      classList.add('fa-square');
-    }
+    this.icon.innerText = value ? 'check_box' : 'check_box_outline_blank';
   }
 
   get text () {
-    return this.textContainer.textContent;
+    return this.textContainer.innerText;
   }
 
   set text (text) {
-    this.textContainer.textContent = text;
+    this.textContainer.innerText = text;
   }
 
-  update({ id, done, text }) {
+  update ({ id, done, text }) {
     this.id = id;
     this.isDone = !!done;
     this.text = text;
@@ -90,10 +76,7 @@ export default class Item {
       'input.input',
       {
         type: 'text',
-        value: oldValue,
-        style: {
-          width: '100%'
-        }
+        value: oldValue
       }
     );
     const submit = () => {
@@ -103,10 +86,20 @@ export default class Item {
       mount(this.mainContainer, this.textContainer);
       this.text = newValue;
 
-      if (oldValue !== newValue) {
-        storage.dispatchEvent(new CustomEvent(this.id ? 'update' : 'create', {
+      if (this.id) {
+        // Only update existing items when the text has changed.
+        if (oldValue !== newValue) {
+          storage.dispatchEvent(new CustomEvent('update', {
+            detail: {
+              id: this.id,
+              done: this.isDone,
+              text: newValue
+            }
+          }));
+        }
+      } else {
+        storage.dispatchEvent(new CustomEvent('create', {
           detail: {
-            id: this.id,
             done: this.isDone,
             text: newValue
           }
