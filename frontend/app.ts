@@ -74,6 +74,9 @@ export default class App {
 
       this.todoList.update(todo);
       this.doneList.update(done);
+
+      this.todoList.el.classList.toggle('hide', todo.length === 0);
+      this.doneList.el.classList.toggle('hide', done.length === 0);
     });
 
     this.tabs = M.Tabs.init(this.tabContainer);
