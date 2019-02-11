@@ -1,13 +1,20 @@
-const express = require('express');
+import express, { Response } from 'express';
 
-const Item = require('./item');
-const redisClient = require('./redis-client');
+import { Item } from '../common/types';
+
+import {
+  StorageError,
+  createItem,
+  deleteItem,
+  listItems,
+  updateItem,
+} from './storage';
 
 const router = express.Router();
 
 module.exports = router;
 
-const handleError = (res, err) => {
+const handleError = (res: Response, err: StorageError) => {
   const { status } = err;
 
   if (typeof status === 'number') {
@@ -19,25 +26,19 @@ const handleError = (res, err) => {
 };
 
 router.get('/', (req, res) => (
-  Item.list(redisClient)
+  listItems()
     .then((items) => res.status(200).json(items))
     .catch((err) => handleError(res, err))
 ));
 
 router.put('/', (req, res) => (
-  Item.create(redisClient, req.body.text)
+  createItem(req.body.text)
     .then((item) => res.status(201).json(item))
     .catch((err) => handleError(res, err))
 ));
 
-router.get('/:id', (req, res) => (
-  Item.get(redisClient, req.params.id)
-    .then((item) => res.status(200).json(item))
-    .catch((err) => handleError(res, err))
-));
-
 router.patch('/:id', (req, res) => (
-  Item.update(redisClient, {
+  updateItem({
     id: req.params.id,
     text: req.body.text,
     done: !!req.body.done
@@ -47,7 +48,7 @@ router.patch('/:id', (req, res) => (
 ));
 
 router.delete('/:id', (req, res) => (
-  Item.delete(redisClient, req.params.id)
+  deleteItem(req.params.id)
     .then(() => res.status(200).json({ id: req.params.id }))
     .catch((err) => handleError(res, err))
 ));
