@@ -1,12 +1,23 @@
 import { el, mount, unmount } from 'redom';
 
-import storage from './storage';
+import { Item } from '../common/types';
+
+import { createItem, deleteItem, updateItem } from './actions';
+import store from './store';
 
 /**
  * RE:DOM component representing single item in a shopping list.
  */
-export default class Item {
-  constructor () {
+export default class ItemDisplay {
+  public el: HTMLElement;
+  private toggleButton: HTMLElement;
+  private icon: HTMLElement;
+  private mainContainer: HTMLElement;
+  private textContainer: HTMLElement;
+  private deleteButton: HTMLElement;
+  private id?: string;
+
+  public constructor() {
     this.el = el('li.collection-item.row.valign-wrapper',
       el('.col.s2.l1',
         this.toggleButton = el('a.btn-flat',
@@ -36,50 +47,29 @@ export default class Item {
     this.deleteButton.addEventListener('click', this.onDelete.bind(this));
   }
 
-  get isDone () {
+  public get isDone(): boolean {
     return this.icon.innerText === 'check_box';
   }
 
-  set isDone (value) {
+  public set isDone(value: boolean) {
     this.icon.innerText = value ? 'check_box' : 'check_box_outline_blank';
   }
 
-  get text () {
-    return this.textContainer.innerText;
+  public get text(): string {
+    return this.textContainer.textContent || '';
   }
 
-  set text (text) {
-    this.textContainer.innerText = text;
+  public set text(text: string) {
+    this.textContainer.textContent = text;
   }
 
-  update ({ id, done, text }) {
+  public update({ id, done, text }: Item) {
     this.id = id;
     this.isDone = !!done;
     this.text = text;
   }
 
-  onToggle () {
-    this.isDone = !this.isDone;
-    if (this.id) {
-      storage.dispatchEvent(new CustomEvent('update', {
-        detail: {
-          id: this.id,
-          done: this.isDone,
-          text: this.text
-        }
-      }));
-    }
-  }
-
-  onDelete () {
-    if (this.id) {
-      storage.dispatchEvent(new CustomEvent('delete', {
-        detail: this.id
-      }));
-    }
-  }
-
-  onEdit () {
+  public onEdit() {
     const oldValue = this.text;
     const input = el(
       'input.input',
@@ -87,7 +77,7 @@ export default class Item {
         type: 'text',
         value: oldValue
       }
-    );
+    ) as HTMLInputElement;
     const submit = () => {
       const newValue = input.value.trim();
 
@@ -98,21 +88,14 @@ export default class Item {
       if (this.id) {
         // Only update existing items when the text has changed.
         if (oldValue !== newValue) {
-          storage.dispatchEvent(new CustomEvent('update', {
-            detail: {
-              id: this.id,
-              done: this.isDone,
-              text: newValue
-            }
+          store.dispatch(updateItem({
+            id: this.id,
+            text: newValue,
+            done: this.isDone,
           }));
         }
       } else {
-        storage.dispatchEvent(new CustomEvent('create', {
-          detail: {
-            done: this.isDone,
-            text: newValue
-          }
-        }));
+        store.dispatch(createItem(newValue));
       }
     };
 
@@ -130,5 +113,26 @@ export default class Item {
 
     mount(this.mainContainer, input);
     input.focus();
+  }
+
+  private onToggle() {
+    this.isDone = !this.isDone;
+    if (this.id) {
+      store.dispatch(updateItem({
+        id: this.id,
+        text: this.text,
+        done: this.isDone,
+      }));
+    }
+  }
+
+  private onDelete() {
+    if (this.id) {
+      store.dispatch(deleteItem({
+        id: this.id,
+        text: this.text,
+        done: this.isDone,
+      }));
+    }
   }
 }
