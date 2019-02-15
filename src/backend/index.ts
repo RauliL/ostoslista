@@ -9,12 +9,12 @@ const debug = require('debug')('ostoslista-server');
 const DEFAULT_PORT = 3000;
 
 const port = normalizePort(process.env.PORT || DEFAULT_PORT);
-const publicDir = path.join(__dirname, '..', 'public');
+const publicDir = path.join(__dirname, '..', '..', 'public');
 
 const app = express();
 
 app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, '..', 'views'));
+app.set('views', path.join(__dirname, '..', '..', 'views'));
 app.use(express.static(publicDir));
 app.use(bodyParser.json());
 app.use('/api', require('./api'));

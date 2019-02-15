@@ -4,7 +4,7 @@ const path = require('path');
 const backendConfig = {
   target: 'node',
   entry: [
-    path.join(__dirname, 'backend', 'index.ts')
+    path.join(__dirname, 'src', 'backend', 'index.ts')
   ],
   output: {
     path: __dirname,
@@ -32,7 +32,7 @@ const backendConfig = {
 
 const frontendConfig = {
   entry: [
-    path.join(__dirname, 'frontend', 'index.ts')
+    path.join(__dirname, 'src', 'frontend', 'index.ts')
   ],
   output: {
     path: path.join(__dirname, 'public'),
