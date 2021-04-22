@@ -1,4 +1,6 @@
+/data
+/lib
 /node_modules
-/public/app.js
-/server.js
+/public/static
+*.log
 *.tgz

@@ -1,9 +1,12 @@
 /.dockerignore
 /.editorconfig
+/.eslintrc.json
+/.prettierrc.json
 /Dockerfile
-/docker-compose.yml
+/data
 /node_modules
 /src
 /tsconfig.*.json
 /webpack.config.js
+*.log
 *.tgz

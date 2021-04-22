@@ -1,26 +1,30 @@
-import bodyParser from 'body-parser';
+import { createRouter } from '@varasto/express-crud';
+import { createStorage } from '@varasto/storage';
 import express from 'express';
-import * as path from 'path';
+import morgan from 'morgan';
+import path from 'path';
+import * as yup from 'yup';
 
 import { normalizePort } from './utils';
 
-const debug = require('debug')('ostoslista-server');
-
-const DEFAULT_PORT = 3000;
-
-const port = normalizePort(process.env.PORT || DEFAULT_PORT);
-const publicDir = path.join(__dirname, '..', '..', 'public');
+const entrySchema = yup.object().shape({
+  id: yup.string().uuid().optional(),
+  text: yup.string().required().max(150),
+  done: yup.boolean().required(),
+});
 
 const app = express();
+const port = normalizePort(process.env.PORT || '3000');
+const storage = createStorage({
+  dir: process.env.OSTOSLISTA_DATA || path.resolve(__dirname, '..', 'data'),
+});
 
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, '..', '..', 'views'));
-app.use(express.static(publicDir));
-app.use(bodyParser.json());
-app.use('/api', require('./api'));
+app.use(morgan('combined'));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use('/api', createRouter(storage, 'entries', entrySchema));
 
-app.get('/', (req, res) => res.render('index'));
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 app.on('error', (err: any) => {
   const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
 
@@ -45,4 +49,4 @@ app.on('error', (err: any) => {
   }
 });
 
-app.listen(port, () => debug(`Listening on ${port}`));
+app.listen(port);

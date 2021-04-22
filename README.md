@@ -1,18 +1,21 @@
 # Ostoslista
 
 Simple shopping list Web application, in which a single shopping list can be
-shared among family members. Uses [Redis] as storage, while the UI has been
-implemented with [RE:DOM] and [Materialize].
+shared among family members. Uses [Varasto] as storage, while UI has been
+implemented with [React] and [Material UI].
+
+[Varasto]: https://github.com/RauliL/varasto
+[React]: https://reactjs.org
+[Material UI]: https://material-ui.com
 
 ## Requirements
 
-- Redis
-- Node.js >=8
+* Node.js>=12
 
-## How to get up and running
+## How to get it up and running
 
-Clone this Git repository into somewhere, set up your Redis, then proceed by
-installing dependencies and building static assets:
+Clone this Git repository into somewhere, then proceed by installing
+dependencies and building static assets and other TypeScript'y stuff:
 
 ```bash
 $ npm install
@@ -26,15 +29,10 @@ $ npm start
 ```
 
 Which starts the backend HTTP server in port `3000`. You can change the default
-port with `PORT` environment variable. Redis is assumed to be running on
-`localhost` at default Redis port by default, however this can be customized
-with environment variable `REDIS_URL`.
+port with `PORT` environment variable.
 
 ## Attributions
 
 Icon made by [Freepik] from [www.flaticon.com](https://www.flaticon.com).
 
-[Redis]: https://redis.io
-[RE:DOM]: https://redom.js.org
-[Materialize]: https://materializecss.com
 [Freepik]: https://www.flaticon.com/authors/freepik
