@@ -3,6 +3,7 @@
 /.eslintrc.json
 /.github
 /.prettierrc.json
+/.vscode
 /Dockerfile
 /data
 /node_modules

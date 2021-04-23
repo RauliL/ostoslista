@@ -25,6 +25,7 @@ import { Entry } from '../types';
 import { AddEntryDialog } from './AddEntryDialog';
 import { EditEntryDialog } from './EditEntryDialog';
 import { EntryList } from './EntryList';
+import { ErrorSnackbar } from './ErrorSnackbar';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -37,6 +38,7 @@ type TabId = 'todo' | 'done';
 type AppState = {
   addEntryDialogOpen: boolean;
   editEntryDialogOpen: boolean;
+  errorSnackbarOpen: boolean;
   selectedEntry?: Entry;
   selectedTab: TabId;
   todoEntries: Entry[];
@@ -49,6 +51,7 @@ export const App: FunctionComponent = () => {
   const [state, setState] = useState<AppState>({
     addEntryDialogOpen: false,
     editEntryDialogOpen: false,
+    errorSnackbarOpen: false,
     selectedTab: 'todo',
     todoEntries: [],
     doneEntries: [],
@@ -88,8 +91,11 @@ export const App: FunctionComponent = () => {
         await mutate('entries');
       })
       .catch((err) => {
-        // TODO: Display an error message to the user as well.
         console.error(err);
+        setState((oldState) => ({
+          ...oldState,
+          errorSnackbarOpen: true,
+        }));
       });
 
   const handleEntryDelete = (entry: Entry) =>
@@ -98,8 +104,11 @@ export const App: FunctionComponent = () => {
         await mutate('entries');
       })
       .catch((err) => {
-        // TODO: Display an error message to the user as well.
         console.error(err);
+        setState((oldState) => ({
+          ...oldState,
+          errorSnackbarOpen: true,
+        }));
       });
 
   const handleEntrySelect = (entry: Entry) =>
@@ -109,10 +118,19 @@ export const App: FunctionComponent = () => {
       selectedEntry: entry,
     }));
 
+  const handleErrorSnackbarClose = () =>
+    setState((oldState) => ({
+      ...oldState,
+      errorSnackbarOpen: false,
+    }));
+
   useEffect(() => {
     if (error != null) {
-      // TODO: Display an error message to the user as well.
       console.error(error);
+      setState((oldState) => ({
+        ...oldState,
+        errorSnackbarOpen: true,
+      }));
     }
 
     if (data != null) {
@@ -181,6 +199,10 @@ export const App: FunctionComponent = () => {
         entry={state.selectedEntry}
         open={state.editEntryDialogOpen}
         onClose={handleEditEntryDialogClose}
+      />
+      <ErrorSnackbar
+        onClose={handleErrorSnackbarClose}
+        open={state.errorSnackbarOpen}
       />
     </>
   );
