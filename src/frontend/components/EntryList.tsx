@@ -7,9 +7,9 @@ import { EntryListItem } from './EntryListItem';
 
 export type EntryListProps = {
   entries: Entry[];
-  onEntryDelete: (entry: Entry) => void;
+  onEntryDelete: (entry: Entry) => Promise<void>;
   onEntrySelect: (entry: Entry) => void;
-  onEntryToggle: (entry: Entry) => void;
+  onEntryToggle: (entry: Entry) => Promise<void>;
 };
 
 export const EntryList: FunctionComponent<EntryListProps> = ({
