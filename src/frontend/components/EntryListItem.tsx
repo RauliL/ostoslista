@@ -51,7 +51,7 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
   };
 
   return (
-    <ListItem onDoubleClick={onSelect}>
+    <ListItem button onDoubleClick={onSelect}>
       <ListItemIcon>
         <IconButton
           onClick={handleButtonClick(onToggle, 'toggle')}
