@@ -409,23 +409,32 @@
     "@typescript-eslint/types" "4.22.0"
     eslint-visitor-keys "^2.0.0"
 
-"@varasto/express-crud@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@varasto/express-crud/-/express-crud-1.0.0.tgz#758e5dd727b5c002940c7c4b8e13d026b59a83fa"
-  integrity sha512-gvLKp1fqmLj4Qr+aC9fU/0uM92gkAPhfZ2kwcOWKpoFe1vczXJqmLInVeydeTb+X1oI0ut+uNMuecKmydDiYvQ==
+"@varasto/express-crud@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@varasto/express-crud/-/express-crud-2.0.0.tgz#894e7b0352771da3f460250cc348737c209e57ea"
+  integrity sha512-2La5ph14Yhrb1+W2Ib4EFgFf+mTcq7st/Lqp3fothsdjIzptTC47rZaaeWv5n742NQi7UBQ0u8YWaexHCnhY+g==
   dependencies:
-    "@varasto/storage" "^2.0.0"
+    "@varasto/storage" "^3.0.0"
     express "^4.17.1"
     yup "^0.32.9"
 
-"@varasto/storage@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@varasto/storage/-/storage-2.0.0.tgz#bfdd4173deb303393ae2c3964afb15d084b61fbc"
-  integrity sha512-1QVhgt2QRdb/QDn9HSmGFjL2ZMsC4qTVfNLhB/QLbHUrbBJzq2ZkbQI4Xnbwtr/WvU9EL/B1ypv6W2mrYM4Y1Q==
+"@varasto/fs-storage@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@varasto/fs-storage/-/fs-storage-1.0.0.tgz#9bfc0c4efc674f96fd7903cac5a95cb7fe5826a8"
+  integrity sha512-Mi7CxjkPIjh9nHh0iSOKWiPAABjwnxxYw/J4UCEkKFX3KLFCyQG6I/Y3hlxEmFXR+M3GtiSSUAfRwYLcjTq84g==
   dependencies:
-    glob "^7.1.6"
+    "@varasto/storage" "^3.0.0"
+    glob "^7.1.7"
+    is-valid-slug "^1.0.0"
     mkdirp "^1.0.4"
-    type-fest "^0.20.2"
+    type-fest "^1.2.2"
+
+"@varasto/storage@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@varasto/storage/-/storage-3.0.0.tgz#8bb70859d80e96c6fa9504b4b8eab082f4bd3cb1"
+  integrity sha512-75VC6qsP53a55tT8RSrOyyboO7Hhuv8AT8FEAEM36vOuR5ikD5xXQf0AZxKDsadTNHF1Z+KI/gYFU89WXkFzug==
+  dependencies:
+    type-fest "^1.2.2"
 
 "@webassemblyjs/ast@1.11.0":
   version "1.11.0"
@@ -1639,10 +1648,22 @@ glob-to-regexp@^0.4.1:
   resolved "https://registry.yarnpkg.com/glob-to-regexp/-/glob-to-regexp-0.4.1.tgz#c75297087c851b9a578bd217dd59a92f59fe546e"
   integrity sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==
 
-glob@^7.1.3, glob@^7.1.6:
+glob@^7.1.3:
   version "7.1.6"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.6.tgz#141f33b81a7c2492e125594307480c46679278a6"
   integrity sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^3.0.4"
+    once "^1.3.0"
+    path-is-absolute "^1.0.0"
+
+glob@^7.1.7:
+  version "7.1.7"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.7.tgz#3b193e9233f01d42d0b3f78294bbeeb418f94a90"
+  integrity sha512-OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==
   dependencies:
     fs.realpath "^1.0.0"
     inflight "^1.0.4"
@@ -2038,6 +2059,11 @@ is-typedarray@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-typedarray/-/is-typedarray-1.0.0.tgz#e479c80858df0c1b11ddda6940f96011fcda4a9a"
   integrity sha1-5HnICFjfDBsR3dppQPlgEfzaSpo=
+
+is-valid-slug@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/is-valid-slug/-/is-valid-slug-1.0.0.tgz#26dc6344b8007741b46923b38bf3ef7ce356025f"
+  integrity sha512-TJgtec9lWGUzu+woEh93FvaQeWomb3wmUojCjMjkNPvbSbU0uta1kNpr8thC2TXdMToey1n/UsEmSlmJu3eeoQ==
 
 is-yarn-global@^0.3.0:
   version "0.3.0"
@@ -3413,6 +3439,11 @@ type-fest@^0.8.1:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
+
+type-fest@^1.2.2:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-1.4.0.tgz#e9fb813fe3bf1744ec359d55d1affefa76f14be1"
+  integrity sha512-yGSza74xk0UG8k+pLh5oeoYirvIiWo5t0/o3zHHAO2tRDiZcxWP7fywNlXhqb6/r6sWvwi+RsyQMWhVLe4BVuA==
 
 type-is@~1.6.17, type-is@~1.6.18:
   version "1.6.18"

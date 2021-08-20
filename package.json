@@ -60,7 +60,8 @@
     "yarn": "^1.22.10"
   },
   "dependencies": {
-    "@varasto/express-crud": "^1.0.0",
+    "@varasto/express-crud": "^2.0.0",
+    "@varasto/fs-storage": "^1.0.0",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "uuid": "^8.3.2",

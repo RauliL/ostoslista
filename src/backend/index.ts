@@ -1,5 +1,5 @@
 import { createRouter } from '@varasto/express-crud';
-import { createStorage } from '@varasto/storage';
+import { createFileSystemStorage } from '@varasto/fs-storage';
 import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
@@ -9,7 +9,7 @@ import { normalizePort } from './utils';
 
 const app = express();
 const port = normalizePort(process.env.PORT || '3000');
-const storage = createStorage({
+const storage = createFileSystemStorage({
   dir: process.env.OSTOSLISTA_DATA || path.resolve(__dirname, '..', 'data'),
 });
 
