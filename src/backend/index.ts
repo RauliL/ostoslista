@@ -3,15 +3,9 @@ import { createStorage } from '@varasto/storage';
 import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
-import * as yup from 'yup';
 
+import { entrySchema } from './schema';
 import { normalizePort } from './utils';
-
-const entrySchema = yup.object().shape({
-  id: yup.string().uuid().optional(),
-  text: yup.string().required().max(150),
-  done: yup.boolean().required(),
-});
 
 const app = express();
 const port = normalizePort(process.env.PORT || '3000');
