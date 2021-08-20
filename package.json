@@ -16,14 +16,13 @@
     "node": ">=12.0"
   },
   "scripts": {
-    "build": "webpack-cli",
-    "watch": "webpack-cli --watch",
-    "start": "node './lib/index.js'",
-    "start:dev": "nodemon --watch './lib' './lib/index.js'",
-    "lint": "eslint './src/**/*.ts'",
-    "style:check": "prettier --check './src/**/*.{ts,tsx}'",
-    "style:write": "prettier --write './src/**/*.{ts,tsx}'",
+    "start": "node ./lib/index.js",
+    "start:dev": "concurrently 'webpack-cli --watch' 'nodemon --watch ./lib ./lib/index.js'",
     "clean": "rimraf './lib' './public/static'",
+    "build": "webpack-cli",
+    "lint": "eslint './src/**/*.{ts,tsx}'",
+    "style:check": "prettier --check './src/**/*.{ts,tsx}'",
+    "style:fix": "prettier --write './src/**/*.{ts,tsx}'",
     "prepack": "yarn clean && env NODE_END=production yarn build"
   },
   "devDependencies": {
@@ -41,6 +40,7 @@
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "axios": "^0.21.1",
+    "concurrently": "^6.2.1",
     "eslint": "^7.24.0",
     "eslint-plugin-react": "^7.23.2",
     "lodash": "^4.17.21",
