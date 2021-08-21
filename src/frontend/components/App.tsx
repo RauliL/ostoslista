@@ -1,53 +1,29 @@
-import AppBar from '@material-ui/core/AppBar';
-import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import IconButton from '@material-ui/core/IconButton';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { ThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
-import CheckBoxOutlineBlankOutlinedIcon from '@material-ui/icons/CheckBoxOutlineBlankOutlined';
-import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { partition } from 'lodash';
-import React, {
-  ChangeEvent,
-  FunctionComponent,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import useSWR, { mutate } from 'swr';
 
 import { deleteEntry, getAllEntries, patchEntry } from '../api';
 import { usePreferDarkMode } from '../hooks';
-import { Entry } from '../types';
+import { Entry, EntryType } from '../types';
 
-import { AddEntryDialog } from './AddEntryDialog';
-import { EditEntryDialog } from './EditEntryDialog';
-import { EntryList } from './EntryList';
-import { ErrorSnackbar } from './ErrorSnackbar';
-
-const useStyles = makeStyles(() => ({
-  title: {
-    flexGrow: 1,
-  },
-}));
-
-type TabId = 'todo' | 'done';
+import { Content } from './Content';
+import { Toolbar } from './Toolbar';
+import { AddEntryDialog, EditEntryDialog } from './dialog';
+import { ErrorSnackbar } from './snackbar';
 
 type AppState = {
   addEntryDialogOpen: boolean;
   editEntryDialogOpen: boolean;
   errorSnackbarOpen: boolean;
   selectedEntry?: Entry;
-  selectedTab: TabId;
+  selectedTab: EntryType;
   todoEntries: Entry[];
   doneEntries: Entry[];
 };
 
 export const App: FunctionComponent = () => {
-  const classes = useStyles();
   const { data, error } = useSWR('entries', getAllEntries);
   const [state, setState] = useState<AppState>({
     addEntryDialogOpen: false,
@@ -58,9 +34,11 @@ export const App: FunctionComponent = () => {
     doneEntries: [],
   });
   const preferDarkMode = usePreferDarkMode();
-  const theme = createMuiTheme({ palette: { type: preferDarkMode ? 'dark' : 'light' }});
+  const theme = createMuiTheme({
+    palette: { type: preferDarkMode ? 'dark' : 'light' },
+  });
 
-  const handleTabChange = (event: ChangeEvent<unknown>, selectedTab: TabId) => {
+  const handleTabChange = (selectedTab: EntryType) => {
     setState((oldState) => ({
       ...oldState,
       selectedTab,
@@ -150,50 +128,20 @@ export const App: FunctionComponent = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar color={preferDarkMode ? 'default' : 'primary'} position="sticky">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Ostoslista
-          </Typography>
-          <IconButton
-            edge="end"
-            color="inherit"
-            onClick={handleAddEntryButtonClick}
-          >
-            <AddIcon />
-          </IconButton>
-        </Toolbar>
-        <Tabs
-          value={state.selectedTab}
-          onChange={handleTabChange}
-          variant="fullWidth"
-        >
-          <Tab
-            label="Todo"
-            value="todo"
-            icon={<CheckBoxOutlineBlankOutlinedIcon />}
-          />
-          <Tab label="Done" value="done" icon={<CheckBoxOutlinedIcon />} />
-        </Tabs>
-      </AppBar>
-      <Container>
-        <div hidden={state.selectedTab !== 'todo'}>
-          <EntryList
-            entries={state.todoEntries}
-            onEntryDelete={handleEntryDelete}
-            onEntrySelect={handleEntrySelect}
-            onEntryToggle={handleEntryToggle}
-          />
-        </div>
-        <div hidden={state.selectedTab !== 'done'}>
-          <EntryList
-            entries={state.doneEntries}
-            onEntryDelete={handleEntryDelete}
-            onEntrySelect={handleEntrySelect}
-            onEntryToggle={handleEntryToggle}
-          />
-        </div>
-      </Container>
+      <Toolbar
+        preferDarkMode={preferDarkMode}
+        onAddEntry={handleAddEntryButtonClick}
+        onTabChange={handleTabChange}
+        selectedTab={state.selectedTab}
+      />
+      <Content
+        doneEntries={state.doneEntries}
+        onEntryDelete={handleEntryDelete}
+        onEntrySelect={handleEntrySelect}
+        onEntryToggle={handleEntryToggle}
+        selectedTab={state.selectedTab}
+        todoEntries={state.todoEntries}
+      />
       <AddEntryDialog
         open={state.addEntryDialogOpen}
         onClose={handleAddEntryDialogClose}

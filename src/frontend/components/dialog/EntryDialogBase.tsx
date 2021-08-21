@@ -14,7 +14,7 @@ import React, {
 } from 'react';
 import { mutate } from 'swr';
 
-import { Entry } from '../types';
+import { Entry } from '../../types';
 
 export type EntryDialogBaseProps = {
   initialText?: string;

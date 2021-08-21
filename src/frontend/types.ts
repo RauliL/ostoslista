@@ -3,3 +3,5 @@ export type Entry = {
   text: string;
   done: boolean;
 };
+
+export type EntryType = 'todo' | 'done';

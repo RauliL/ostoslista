@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
-import { patchEntry } from '../api';
-import { Entry } from '../types';
+import { patchEntry } from '../../api';
+import { Entry } from '../../types';
 
 import { EntryDialogBase } from './EntryDialogBase';
 

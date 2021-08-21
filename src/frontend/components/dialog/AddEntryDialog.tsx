@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 
-import { createEntry } from '../api';
+import { createEntry } from '../../api';
 
 import { EntryDialogBase } from './EntryDialogBase';
 
