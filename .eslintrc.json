@@ -21,6 +21,9 @@
     "react",
     "@typescript-eslint"
   ],
+  "rules": {
+    "react/prop-types": 0
+  },
   "settings": {
     "react": {
       "version": "detect"
