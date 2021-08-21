@@ -80,13 +80,14 @@ export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
             required
             value={value}
             onChange={handleChange}
+            color="secondary"
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} color="primary">
+          <Button onClick={onClose} color="default">
             Cancel
           </Button>
-          <Button type="submit" color="primary">
+          <Button type="submit" color="default">
             Add
           </Button>
         </DialogActions>

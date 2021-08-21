@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { ThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import CheckBoxOutlineBlankOutlinedIcon from '@material-ui/icons/CheckBoxOutlineBlankOutlined';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
@@ -20,6 +20,7 @@ import React, {
 import useSWR, { mutate } from 'swr';
 
 import { deleteEntry, getAllEntries, patchEntry } from '../api';
+import { usePreferDarkMode } from '../hooks';
 import { Entry } from '../types';
 
 import { AddEntryDialog } from './AddEntryDialog';
@@ -56,8 +57,10 @@ export const App: FunctionComponent = () => {
     todoEntries: [],
     doneEntries: [],
   });
+  const preferDarkMode = usePreferDarkMode();
+  const theme = createMuiTheme({ palette: { type: preferDarkMode ? 'dark' : 'light' }});
 
-  const handleTabChange = (event: ChangeEvent<{}>, selectedTab: TabId) => {
+  const handleTabChange = (event: ChangeEvent<unknown>, selectedTab: TabId) => {
     setState((oldState) => ({
       ...oldState,
       selectedTab,
@@ -145,9 +148,9 @@ export const App: FunctionComponent = () => {
   }, [data, error]);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="sticky">
+      <AppBar color={preferDarkMode ? 'default' : 'primary'} position="sticky">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Ostoslista
@@ -204,6 +207,6 @@ export const App: FunctionComponent = () => {
         onClose={handleErrorSnackbarClose}
         open={state.errorSnackbarOpen}
       />
-    </>
+    </ThemeProvider>
   );
 };
