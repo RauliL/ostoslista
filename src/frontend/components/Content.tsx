@@ -7,6 +7,7 @@ import { EntryList } from './EntryList';
 
 export type ContentProps = {
   doneEntries: Entry[];
+  onDeleteAllDoneEntries: () => Promise<void>;
   onEntryDelete: (entry: Entry) => Promise<void>;
   onEntrySelect: (entry: Entry) => void;
   onEntryToggle: (entry: Entry) => Promise<void>;
@@ -16,6 +17,7 @@ export type ContentProps = {
 
 export const Content: FunctionComponent<ContentProps> = ({
   doneEntries,
+  onDeleteAllDoneEntries,
   onEntryDelete,
   onEntrySelect,
   onEntryToggle,
@@ -34,6 +36,7 @@ export const Content: FunctionComponent<ContentProps> = ({
     <div hidden={selectedTab !== 'done'}>
       <EntryList
         entries={doneEntries}
+        onDeleteAllEntries={onDeleteAllDoneEntries}
         onEntryDelete={onEntryDelete}
         onEntrySelect={onEntrySelect}
         onEntryToggle={onEntryToggle}

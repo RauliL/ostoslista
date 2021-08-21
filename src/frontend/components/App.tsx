@@ -99,6 +99,21 @@ export const App: FunctionComponent = () => {
       selectedEntry: entry,
     }));
 
+  const handleDeleteAllDoneEntries = () =>
+    state.doneEntries.length < 1
+      ? Promise.resolve(undefined)
+      : Promise.all(state.doneEntries.map(deleteEntry))
+          .then(async () => {
+            await mutate('entries');
+          })
+          .catch((err) => {
+            console.error(err);
+            setState((oldState) => ({
+              ...oldState,
+              errorSnackbarOpen: true,
+            }));
+          });
+
   const handleErrorSnackbarClose = () =>
     setState((oldState) => ({
       ...oldState,
@@ -136,6 +151,7 @@ export const App: FunctionComponent = () => {
       />
       <Content
         doneEntries={state.doneEntries}
+        onDeleteAllDoneEntries={handleDeleteAllDoneEntries}
         onEntryDelete={handleEntryDelete}
         onEntrySelect={handleEntrySelect}
         onEntryToggle={handleEntryToggle}
