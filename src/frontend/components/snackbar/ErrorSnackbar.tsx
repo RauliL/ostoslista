@@ -1,7 +1,7 @@
-import IconButton from '@material-ui/core/IconButton';
-import Snackbar from '@material-ui/core/Snackbar';
-import CloseIcon from '@material-ui/icons/Close';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Snackbar from '@mui/material/Snackbar';
+import CloseIcon from '@mui/icons-material/Close';
 import React, { FunctionComponent, SyntheticEvent } from 'react';
 
 export type ErrorSnackbarProps = {
@@ -13,7 +13,7 @@ export const ErrorSnackbar: FunctionComponent<ErrorSnackbarProps> = ({
   onClose,
   open,
 }) => {
-  const handleClose = (event: MouseEvent | SyntheticEvent, reason?: string) => {
+  const handleClose = (event: Event | SyntheticEvent, reason?: string) => {
     if (reason !== 'clickaway') {
       onClose();
     }
