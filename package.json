@@ -26,9 +26,10 @@
     "prepack": "yarn clean && env NODE_ENV=production yarn build"
   },
   "devDependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.5",
+    "@mui/material": "^5.2.5",
     "@types/express": "^4.17.11",
     "@types/lodash": "^4.14.168",
     "@types/morgan": "^1.9.2",

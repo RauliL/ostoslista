@@ -1,7 +1,7 @@
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
 import React, { FunctionComponent } from 'react';
 
 export type DeleteAllConfirmationDialogProps = {
@@ -21,10 +21,10 @@ export const DeleteAllConfirmationDialog: FunctionComponent<DeleteAllConfirmatio
         Do you really want to delete all entries marked as done?
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleOnAnswer(true)} color="default">
+        <Button onClick={handleOnAnswer(true)} color="primary">
           Yes
         </Button>
-        <Button onClick={handleOnAnswer(false)} color="default">
+        <Button onClick={handleOnAnswer(false)} color="primary">
           No
         </Button>
       </DialogActions>

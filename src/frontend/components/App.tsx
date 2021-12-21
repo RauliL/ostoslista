@@ -1,5 +1,5 @@
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { partition } from 'lodash';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import useSWR, { mutate } from 'swr';
@@ -34,8 +34,8 @@ export const App: FunctionComponent = () => {
     doneEntries: [],
   });
   const preferDarkMode = usePreferDarkMode();
-  const theme = createMuiTheme({
-    palette: { type: preferDarkMode ? 'dark' : 'light' },
+  const theme = createTheme({
+    palette: { mode: preferDarkMode ? 'dark' : 'light' },
   });
 
   const handleTabChange = (selectedTab: EntryType) => {

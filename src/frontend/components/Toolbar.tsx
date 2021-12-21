@@ -1,22 +1,15 @@
-import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import MuiToolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
-import CheckBoxOutlineBlankOutlinedIcon from '@material-ui/icons/CheckBoxOutlineBlankOutlined';
-import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
+import AppBar from '@mui/material/AppBar';
+import IconButton from '@mui/material/IconButton';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import MuiToolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import AddIcon from '@mui/icons-material/Add';
+import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
+import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 import React, { ChangeEvent, FunctionComponent } from 'react';
 
 import { EntryType } from '../types';
-
-const useStyles = makeStyles(() => ({
-  title: {
-    flexGrow: 1,
-  },
-}));
 
 export type ToolbarProps = {
   preferDarkMode: boolean;
@@ -31,14 +24,13 @@ export const Toolbar: FunctionComponent<ToolbarProps> = ({
   onTabChange,
   selectedTab,
 }) => {
-  const classes = useStyles();
   const handleTabChange = (ev: ChangeEvent<unknown>, selectedTab: EntryType) =>
     onTabChange(selectedTab);
 
   return (
     <AppBar color={preferDarkMode ? 'default' : 'primary'} position="sticky">
       <MuiToolbar>
-        <Typography variant="h6" className={classes.title}>
+        <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Ostoslista
         </Typography>
         <IconButton edge="end" color="inherit" onClick={onAddEntry}>

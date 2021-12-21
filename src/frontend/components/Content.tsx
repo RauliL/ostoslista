@@ -1,4 +1,4 @@
-import Container from '@material-ui/core/Container';
+import Container from '@mui/material/Container';
 import React, { FunctionComponent } from 'react';
 
 import { Entry, EntryType } from '../types';
