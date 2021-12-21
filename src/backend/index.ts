@@ -1,3 +1,4 @@
+import normalizePort from '@fvilers/normalize-port';
 import { createRouter } from '@varasto/express-crud';
 import { createFileSystemStorage } from '@varasto/fs-storage';
 import express from 'express';
@@ -5,7 +6,6 @@ import morgan from 'morgan';
 import path from 'path';
 
 import { entrySchema } from './schema';
-import { normalizePort } from './utils';
 
 const app = express();
 const port = normalizePort(process.env.PORT || '3000');

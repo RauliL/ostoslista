@@ -76,6 +76,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fvilers/normalize-port@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@fvilers/normalize-port/-/normalize-port-1.0.0.tgz#411ab781f8beb5659172ff0a80d45ce860df8563"
+  integrity sha512-rrSRhuJOmX5sHNrG5iHz27W16ghy7uR3GnUCGZE5j7c+OHQJnBGLeVROz7scNCFeuENRxyriL5rApzhzwZ2Elw==
+
 "@material-ui/core@^4.11.3":
   version "4.11.3"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.11.3.tgz#f22e41775b0bd075e36a7a093d43951bf7f63850"
