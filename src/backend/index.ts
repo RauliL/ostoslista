@@ -21,7 +21,7 @@ const storage = createCacheStorage(
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
-app.use('/api', createRouter(storage, 'entries', entrySchema));
+app.use('/api', createRouter(storage, 'entries', { schema: entrySchema }));
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 app.on('error', (err: any) => {

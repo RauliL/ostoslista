@@ -14,12 +14,10 @@ import React, {
 } from 'react';
 import { mutate } from 'swr';
 
-import { Entry } from '../../types';
-
 export type EntryDialogBaseProps = {
   initialText?: string;
   onClose: () => void;
-  onSubmit: (text: string) => Promise<Entry>;
+  onSubmit: (text: string) => Promise<void>;
   open: boolean;
   title: string;
 };

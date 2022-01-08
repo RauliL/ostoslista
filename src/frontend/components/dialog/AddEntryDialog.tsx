@@ -13,7 +13,8 @@ export const AddEntryDialog: FunctionComponent<AddEntryDialogProps> = ({
   onClose,
   open,
 }) => {
-  const handleSubmit = (text: string) => createEntry(text);
+  const handleSubmit = (text: string) =>
+    createEntry(text).then(() => undefined);
 
   return (
     <EntryDialogBase

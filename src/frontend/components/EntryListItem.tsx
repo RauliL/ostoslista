@@ -8,10 +8,10 @@ import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React, { FunctionComponent, useState } from 'react';
 
-import { Entry } from '../types';
+import { SavedEntry } from '../types';
 
 export type EntryListItemProps = {
-  entry: Entry;
+  entry: SavedEntry;
   onSelect: () => void;
   onToggle: () => Promise<void>;
   onDelete: () => Promise<void>;

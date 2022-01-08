@@ -3,16 +3,16 @@ import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 import { getAllEntries } from './api';
-import { Entry } from './types';
+import { SavedEntry } from './types';
 
 export const useAllEntries = (): {
-  todoEntries: Entry[];
-  doneEntries: Entry[];
+  todoEntries: SavedEntry[];
+  doneEntries: SavedEntry[];
   error: Error | undefined;
 } => {
   const { data, error } = useSWR('entries', getAllEntries);
-  const [todoEntries, setTodoEntries] = useState<Entry[]>([]);
-  const [doneEntries, setDoneEntries] = useState<Entry[]>([]);
+  const [todoEntries, setTodoEntries] = useState<SavedEntry[]>([]);
+  const [doneEntries, setDoneEntries] = useState<SavedEntry[]>([]);
 
   useEffect(() => {
     if (data != null) {

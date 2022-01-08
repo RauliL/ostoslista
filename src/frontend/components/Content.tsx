@@ -1,18 +1,18 @@
 import Container from '@mui/material/Container';
 import React, { FunctionComponent } from 'react';
 
-import { Entry, EntryType } from '../types';
+import { EntryType, SavedEntry } from '../types';
 
 import { EntryList } from './EntryList';
 
 export type ContentProps = {
-  doneEntries: Entry[];
+  doneEntries: SavedEntry[];
   onDeleteAllDoneEntries: () => Promise<void>;
-  onEntryDelete: (entry: Entry) => Promise<void>;
-  onEntrySelect: (entry: Entry) => void;
-  onEntryToggle: (entry: Entry) => Promise<void>;
+  onEntryDelete: (entry: SavedEntry) => Promise<void>;
+  onEntrySelect: (entry: SavedEntry) => void;
+  onEntryToggle: (entry: SavedEntry) => Promise<void>;
   selectedTab: EntryType;
-  todoEntries: Entry[];
+  todoEntries: SavedEntry[];
 };
 
 export const Content: FunctionComponent<ContentProps> = ({

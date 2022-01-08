@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 
 import { patchEntry } from '../../api';
-import { Entry } from '../../types';
+import { SavedEntry } from '../../types';
 
 import { EntryDialogBase } from './EntryDialogBase';
 
 export type EditEntryDialogProps = {
-  entry?: Entry;
+  entry?: SavedEntry;
   onClose: () => void;
   open: boolean;
 };
@@ -16,9 +16,9 @@ export const EditEntryDialog: FunctionComponent<EditEntryDialogProps> = ({
   onClose,
   open,
 }) => {
-  const handleSubmit = (text: string): Promise<Entry> =>
+  const handleSubmit = (text: string): Promise<void> =>
     entry
-      ? patchEntry({ ...entry, text })
+      ? patchEntry(entry.id, { ...entry, text }).then(() => undefined)
       : Promise.reject(new Error('No entry selected.'));
 
   return (
