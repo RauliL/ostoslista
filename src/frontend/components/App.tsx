@@ -1,11 +1,10 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { partition } from 'lodash';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import useSWR, { mutate } from 'swr';
+import { mutate } from 'swr';
 
-import { deleteEntry, getAllEntries, patchEntry } from '../api';
-import { usePreferDarkMode } from '../hooks';
+import { deleteEntry, patchEntry } from '../api';
+import { useAllEntries, usePreferDarkMode } from '../hooks';
 import { Entry, EntryType } from '../types';
 
 import { Content } from './Content';
@@ -19,19 +18,15 @@ type AppState = {
   errorSnackbarOpen: boolean;
   selectedEntry?: Entry;
   selectedTab: EntryType;
-  todoEntries: Entry[];
-  doneEntries: Entry[];
 };
 
 export const App: FunctionComponent = () => {
-  const { data, error } = useSWR('entries', getAllEntries);
+  const { todoEntries, doneEntries, error } = useAllEntries();
   const [state, setState] = useState<AppState>({
     addEntryDialogOpen: false,
     editEntryDialogOpen: false,
     errorSnackbarOpen: false,
     selectedTab: 'todo',
-    todoEntries: [],
-    doneEntries: [],
   });
   const preferDarkMode = usePreferDarkMode();
   const theme = createTheme({
@@ -100,9 +95,9 @@ export const App: FunctionComponent = () => {
     }));
 
   const handleDeleteAllDoneEntries = () =>
-    state.doneEntries.length < 1
+    doneEntries.length < 1
       ? Promise.resolve(undefined)
-      : Promise.all(state.doneEntries.map(deleteEntry))
+      : Promise.all(doneEntries.map(deleteEntry))
           .then(async () => {
             await mutate('entries');
           })
@@ -128,17 +123,7 @@ export const App: FunctionComponent = () => {
         errorSnackbarOpen: true,
       }));
     }
-
-    if (data != null) {
-      const [doneEntries, todoEntries] = partition(data, 'done');
-
-      setState((oldState) => ({
-        ...oldState,
-        todoEntries,
-        doneEntries,
-      }));
-    }
-  }, [data, error]);
+  }, [error]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -150,13 +135,13 @@ export const App: FunctionComponent = () => {
         selectedTab={state.selectedTab}
       />
       <Content
-        doneEntries={state.doneEntries}
+        doneEntries={doneEntries}
         onDeleteAllDoneEntries={handleDeleteAllDoneEntries}
         onEntryDelete={handleEntryDelete}
         onEntrySelect={handleEntrySelect}
         onEntryToggle={handleEntryToggle}
         selectedTab={state.selectedTab}
-        todoEntries={state.todoEntries}
+        todoEntries={todoEntries}
       />
       <AddEntryDialog
         open={state.addEntryDialogOpen}
