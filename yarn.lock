@@ -495,11 +495,6 @@
     "@types/mime" "^1"
     "@types/node" "*"
 
-"@types/uuid@^8.3.0":
-  version "8.3.0"
-  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
-  integrity sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
-
 "@types/yup@^0.29.11":
   version "0.29.11"
   resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.29.11.tgz#d654a112973f5e004bf8438122bd7e56a8e5cd7e"
@@ -582,13 +577,14 @@
   dependencies:
     "@varasto/storage" "^3.1.0"
 
-"@varasto/express-crud@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@varasto/express-crud/-/express-crud-2.0.0.tgz#894e7b0352771da3f460250cc348737c209e57ea"
-  integrity sha512-2La5ph14Yhrb1+W2Ib4EFgFf+mTcq7st/Lqp3fothsdjIzptTC47rZaaeWv5n742NQi7UBQ0u8YWaexHCnhY+g==
+"@varasto/express-crud@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@varasto/express-crud/-/express-crud-3.0.0.tgz#52dd4e9189fb79705e0ad196a244f92df3aead7d"
+  integrity sha512-v/APgt+0D8xCM5w2CP3Tev8DgR3kZr5y1nOFj31leTe2/riYVDXL3+Hsq4bfdiZYU4TdWe1w5fgMe5S+s6nvrg==
   dependencies:
     "@varasto/storage" "^3.0.0"
     express "^4.17.1"
+    uuid "^8.3.2"
     yup "^0.32.9"
 
 "@varasto/fs-storage@^1.2.1":

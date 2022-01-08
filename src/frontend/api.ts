@@ -1,26 +1,23 @@
 import axios from 'axios';
-import { values } from 'lodash';
-import { v4 as uuid } from 'uuid';
 
-import { Entry } from './types';
+import { Entry, SavedEntry } from './types';
 
 const client = axios.create({ baseURL: '/api' });
 
-export const getAllEntries = (): Promise<Entry[]> =>
+export const getAllEntries = (): Promise<SavedEntry[]> =>
   client
     .get<Record<string, Entry>>('/')
-    .then((response) => values(response.data));
+    .then((response) =>
+      Object.entries(response.data).map(([id, entry]) => ({ ...entry, id }))
+    );
 
-export const createEntry = (text: string): Promise<Entry> => {
-  const id = uuid(); // TODO: Let the API generate IDs instead.
+export const createEntry = (text: string): Promise<string> =>
+  client
+    .post<{ key: string }>('/', { text, done: false })
+    .then((response) => response.data.key);
 
-  return client
-    .post<Entry>(`/${id}`, { id, text, done: false })
-    .then((response) => response.data);
-};
+export const patchEntry = (id: string, entry: Entry): Promise<Entry> =>
+  client.patch<Entry>(`/${id}`, entry).then((response) => response.data);
 
-export const patchEntry = (entry: Entry): Promise<Entry> =>
-  client.patch<Entry>(`/${entry.id}`, entry).then((response) => response.data);
-
-export const deleteEntry = (entry: Entry): Promise<Entry> =>
-  client.delete(`/${entry.id}`);
+export const deleteEntry = (id: string): Promise<Entry> =>
+  client.delete<Entry>(`/${id}`).then((response) => response.data);

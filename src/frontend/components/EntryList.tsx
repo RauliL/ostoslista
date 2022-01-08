@@ -1,17 +1,17 @@
 import List from '@mui/material/List';
 import React, { FunctionComponent } from 'react';
 
-import { Entry } from '../types';
+import { SavedEntry } from '../types';
 
 import { DeleteAllEntriesListItem } from './DeleteAllEntriesListItem';
 import { EntryListItem } from './EntryListItem';
 
 export type EntryListProps = {
-  entries: Entry[];
+  entries: SavedEntry[];
   onDeleteAllEntries?: () => Promise<void>;
-  onEntryDelete: (entry: Entry) => Promise<void>;
-  onEntrySelect: (entry: Entry) => void;
-  onEntryToggle: (entry: Entry) => Promise<void>;
+  onEntryDelete: (entry: SavedEntry) => Promise<void>;
+  onEntrySelect: (entry: SavedEntry) => void;
+  onEntryToggle: (entry: SavedEntry) => Promise<void>;
 };
 
 export const EntryList: FunctionComponent<EntryListProps> = ({

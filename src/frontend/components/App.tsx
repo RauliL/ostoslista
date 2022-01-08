@@ -5,7 +5,7 @@ import { mutate } from 'swr';
 
 import { deleteEntry, patchEntry } from '../api';
 import { useAllEntries, usePreferDarkMode } from '../hooks';
-import { Entry, EntryType } from '../types';
+import { Entry, EntryType, SavedEntry } from '../types';
 
 import { Content } from './Content';
 import { Toolbar } from './Toolbar';
@@ -16,7 +16,7 @@ type AppState = {
   addEntryDialogOpen: boolean;
   editEntryDialogOpen: boolean;
   errorSnackbarOpen: boolean;
-  selectedEntry?: Entry;
+  selectedEntry?: SavedEntry;
   selectedTab: EntryType;
 };
 
@@ -61,8 +61,8 @@ export const App: FunctionComponent = () => {
     }));
   };
 
-  const handleEntryToggle = (entry: Entry) =>
-    patchEntry({ ...entry, done: !entry.done })
+  const handleEntryToggle = (entry: SavedEntry) =>
+    patchEntry(entry.id, { ...entry, done: !entry.done })
       .then(async () => {
         await mutate('entries');
       })
@@ -74,8 +74,8 @@ export const App: FunctionComponent = () => {
         }));
       });
 
-  const handleEntryDelete = (entry: Entry) =>
-    deleteEntry(entry)
+  const handleEntryDelete = (entry: SavedEntry) =>
+    deleteEntry(entry.id)
       .then(async () => {
         await mutate('entries');
       })
@@ -87,7 +87,7 @@ export const App: FunctionComponent = () => {
         }));
       });
 
-  const handleEntrySelect = (entry: Entry) =>
+  const handleEntrySelect = (entry: SavedEntry) =>
     setState((oldState) => ({
       ...oldState,
       editEntryDialogOpen: true,
@@ -97,7 +97,7 @@ export const App: FunctionComponent = () => {
   const handleDeleteAllDoneEntries = () =>
     doneEntries.length < 1
       ? Promise.resolve(undefined)
-      : Promise.all(doneEntries.map(deleteEntry))
+      : Promise.all(doneEntries.map((entry) => deleteEntry(entry.id)))
           .then(async () => {
             await mutate('entries');
           })
