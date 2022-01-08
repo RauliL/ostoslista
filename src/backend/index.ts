@@ -1,4 +1,5 @@
 import normalizePort from '@fvilers/normalize-port';
+import { createCacheStorage } from '@varasto/cache-storage';
 import { createRouter } from '@varasto/express-crud';
 import { createFileSystemStorage } from '@varasto/fs-storage';
 import express from 'express';
@@ -9,9 +10,13 @@ import { entrySchema } from './schema';
 
 const app = express();
 const port = normalizePort(process.env.PORT || '3000');
-const storage = createFileSystemStorage({
-  dir: process.env.OSTOSLISTA_DATA || path.resolve(__dirname, '..', 'data'),
-});
+const storage = createCacheStorage(
+  createFileSystemStorage({
+    dir: process.env.OSTOSLISTA_DATA || path.resolve(__dirname, '..', 'data'),
+  }),
+  // 15 minutes in milliseconds.
+  900000
+);
 
 app.use(morgan('combined'));
 app.use(express.json());

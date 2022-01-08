@@ -575,6 +575,13 @@
     "@typescript-eslint/types" "4.22.0"
     eslint-visitor-keys "^2.0.0"
 
+"@varasto/cache-storage@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@varasto/cache-storage/-/cache-storage-1.1.1.tgz#98852eeae131f9e84d99ed7a2e240e33f0f76192"
+  integrity sha512-vHCsIOvTtnyUieat7OJAEI2fgSPW9EH8JgfK+GACjnm8wCPnYaUHyrtBAjTf3OsptGqyssNTF37YsFtX8KOPKg==
+  dependencies:
+    "@varasto/storage" "^3.1.0"
+
 "@varasto/express-crud@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@varasto/express-crud/-/express-crud-2.0.0.tgz#894e7b0352771da3f460250cc348737c209e57ea"
@@ -584,21 +591,27 @@
     express "^4.17.1"
     yup "^0.32.9"
 
-"@varasto/fs-storage@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@varasto/fs-storage/-/fs-storage-1.0.0.tgz#9bfc0c4efc674f96fd7903cac5a95cb7fe5826a8"
-  integrity sha512-Mi7CxjkPIjh9nHh0iSOKWiPAABjwnxxYw/J4UCEkKFX3KLFCyQG6I/Y3hlxEmFXR+M3GtiSSUAfRwYLcjTq84g==
+"@varasto/fs-storage@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@varasto/fs-storage/-/fs-storage-1.2.1.tgz#4e2731ff43d29e43f256101b87a35f891a03a119"
+  integrity sha512-N3QKVnTGyRuKaBMvnmTce1/+vXzuB96/cf82wUSOTZxVz7ogPzcqDkDVSU7pbc9cmkYJKwwkKokwrkhotMzfpA==
   dependencies:
-    "@varasto/storage" "^3.0.0"
+    "@varasto/storage" "^3.1.0"
     glob "^7.1.7"
     is-valid-slug "^1.0.0"
     mkdirp "^1.0.4"
-    type-fest "^1.2.2"
 
 "@varasto/storage@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@varasto/storage/-/storage-3.0.0.tgz#8bb70859d80e96c6fa9504b4b8eab082f4bd3cb1"
   integrity sha512-75VC6qsP53a55tT8RSrOyyboO7Hhuv8AT8FEAEM36vOuR5ikD5xXQf0AZxKDsadTNHF1Z+KI/gYFU89WXkFzug==
+  dependencies:
+    type-fest "^1.2.2"
+
+"@varasto/storage@^3.1.0":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@varasto/storage/-/storage-3.1.1.tgz#796265afd8b2425c838331b50adfdfb023b0bded"
+  integrity sha512-F/1KUrVMAQz/CJZPmmApUvhgIK/wE5F2asb1MijLH7b8UD8daAtPIIcwSh4x1Zrn6AFCqv5xLbJBwTP7HqF5yQ==
   dependencies:
     type-fest "^1.2.2"
 
