@@ -5,7 +5,7 @@ import { mutate } from 'swr';
 
 import { deleteEntry, patchEntry } from '../api';
 import { useAllEntries, usePreferDarkMode } from '../hooks';
-import { Entry, EntryType, SavedEntry } from '../types';
+import { EntryType, SavedEntry } from '../types';
 
 import { Content } from './Content';
 import { Toolbar } from './Toolbar';
