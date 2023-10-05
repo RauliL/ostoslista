@@ -1,6 +1,6 @@
 {
   "name": "ostoslista",
-  "version": "3.5.0",
+  "version": "4.0.0",
   "description": "Shopping list Web application",
   "author": "Rauli Laine <rauli.laine@iki.fi>",
   "license": "MIT",
@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/RauliL/ostoslista",
   "engines": {
-    "node": ">=12.0"
+    "node": ">=18.0"
   },
   "scripts": {
     "start": "node ./lib/index.js",
@@ -23,7 +23,16 @@
     "lint": "eslint './src/**/*.{ts,tsx}'",
     "style:check": "prettier --check './src/**/*.{ts,tsx}'",
     "style:fix": "prettier --write './src/**/*.{ts,tsx}'",
-    "prepack": "yarn clean && env NODE_ENV=production yarn build"
+    "prebuild": "$npm_execpath run clean",
+    "prepack": "env NODE_ENV=production $npm_execpath run build"
+  },
+  "dependencies": {
+    "@fvilers/normalize-port": "^1.0.0",
+    "@varasto/cache-storage": "^3.0.0",
+    "@varasto/express-crud": "^5.0.0",
+    "@varasto/fs-storage": "^3.0.0",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@emotion/react": "^11.7.1",
@@ -37,35 +46,25 @@
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "@types/yup": "^0.29.11",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
-    "axios": "^0.21.1",
-    "concurrently": "^6.2.1",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
+    "axios": "^1.5.1",
+    "concurrently": "^8.2.1",
     "eslint": "^7.24.0",
     "eslint-plugin-react": "^7.23.2",
     "lodash": "^4.17.21",
-    "nodemon": "^2.0.7",
+    "nodemon": "^3.0.1",
     "postcss": "^8.2.10",
     "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "rimraf": "^3.0.2",
-    "swr": "^0.5.5",
-    "terser-webpack-plugin": "^5.1.1",
-    "ts-loader": "^9.0.2",
-    "typescript": "^4.2.4",
-    "webpack": "^5.35.0",
-    "webpack-cli": "^4.6.0",
-    "webpack-node-externals": "^3.0.0",
-    "yarn": "^1.22.10"
-  },
-  "dependencies": {
-    "@fvilers/normalize-port": "^1.0.0",
-    "@varasto/cache-storage": "^1.1.1",
-    "@varasto/express-crud": "^3.0.0",
-    "@varasto/fs-storage": "^1.2.1",
-    "express": "^4.17.1",
-    "morgan": "^1.10.0",
-    "yup": "^0.32.9"
+    "rimraf": "^5.0.5",
+    "swr": "^2.2.4",
+    "terser-webpack-plugin": "^5.3.9",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.2.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-node-externals": "^3.0.0"
   }
 }
