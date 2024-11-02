@@ -34,22 +34,20 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
     toggle: false,
   });
 
-  const handleButtonClick = (
-    callback: () => Promise<void>,
-    key: keyof EntryListItemButtons
-  ) => () => {
-    setDisabledButtons((oldState) => ({
-      ...oldState,
-      [key]: true,
-    }));
-
-    callback().finally(() =>
+  const handleButtonClick =
+    (callback: () => Promise<void>, key: keyof EntryListItemButtons) => () => {
       setDisabledButtons((oldState) => ({
         ...oldState,
-        [key]: false,
-      }))
-    );
-  };
+        [key]: true,
+      }));
+
+      callback().finally(() =>
+        setDisabledButtons((oldState) => ({
+          ...oldState,
+          [key]: false,
+        }))
+      );
+    };
 
   return (
     <ListItemButton onDoubleClick={onSelect}>

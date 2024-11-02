@@ -12,13 +12,12 @@ export type DeleteAllEntriesListItemProps = {
   onClick: () => Promise<void>;
 };
 
-export const DeleteAllEntriesListItem: FunctionComponent<DeleteAllEntriesListItemProps> = ({
-  onClick,
-}) => {
+export const DeleteAllEntriesListItem: FunctionComponent<
+  DeleteAllEntriesListItemProps
+> = ({ onClick }) => {
   const [disabled, setDisabled] = useState<boolean>(false);
-  const [confirmationDialogOpen, setConfirmationDialogOpen] = useState<boolean>(
-    false
-  );
+  const [confirmationDialogOpen, setConfirmationDialogOpen] =
+    useState<boolean>(false);
 
   const handleClick = () => setConfirmationDialogOpen(true);
 

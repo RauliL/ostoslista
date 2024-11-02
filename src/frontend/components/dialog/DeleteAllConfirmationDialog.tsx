@@ -10,10 +10,9 @@ export type DeleteAllConfirmationDialogProps = {
   open: boolean;
 };
 
-export const DeleteAllConfirmationDialog: FunctionComponent<DeleteAllConfirmationDialogProps> = ({
-  onAnswer,
-  open,
-}) => {
+export const DeleteAllConfirmationDialog: FunctionComponent<
+  DeleteAllConfirmationDialogProps
+> = ({ onAnswer, open }) => {
   const handleOnAnswer = (answer: boolean) => () => onAnswer(answer);
 
   return (
