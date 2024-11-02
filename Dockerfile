@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:20
 
 # Create volume for storing the data.
 RUN mkdir /data
