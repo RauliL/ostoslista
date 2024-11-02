@@ -31,3 +31,5 @@ export const DeleteAllConfirmationDialog: FunctionComponent<DeleteAllConfirmatio
     </Dialog>
   );
 };
+
+DeleteAllConfirmationDialog.displayName = 'DeleteAllConfirmationDialog';

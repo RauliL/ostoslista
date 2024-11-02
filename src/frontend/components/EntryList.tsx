@@ -36,3 +36,5 @@ export const EntryList: FunctionComponent<EntryListProps> = ({
     ))}
   </List>
 );
+
+EntryList.displayName = 'EntryList';

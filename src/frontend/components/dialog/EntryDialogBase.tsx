@@ -14,41 +14,49 @@ import React, {
 } from 'react';
 import { mutate } from 'swr';
 
+export type EntryDialogValues = {
+  text: string;
+  url?: string;
+};
+
 export type EntryDialogBaseProps = {
-  initialText?: string;
+  initialValues?: EntryDialogValues;
   onClose: () => void;
-  onSubmit: (text: string) => Promise<void>;
+  onSubmit: (values: EntryDialogValues) => Promise<void>;
   open: boolean;
   title: string;
 };
 
 export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
-  initialText,
+  initialValues,
   onClose,
   onSubmit,
   open,
   title,
 }) => {
   const [error, setError] = useState<boolean>(false);
-  const [value, setValue] = useState<string>('');
+  const [text, setText] = useState<string>('');
+  const [url, setURL] = useState<string | undefined>();
 
-  const handleChange = (ev: ChangeEvent<HTMLInputElement>) =>
-    setValue(ev.target.value);
+  const handleTextChange = (event: ChangeEvent<HTMLInputElement>) =>
+    setText(event.target.value);
+
+  const handleURLChange = (event: ChangeEvent<HTMLInputElement>) =>
+    setURL(event.target.value);
 
   const handleSubmit = (ev: FormEvent) => {
-    const text = value.trim();
-
     ev.preventDefault();
 
-    if (text.length === 0) {
+    if (/^s\*$/.test(text)) {
       onClose();
       return;
     }
 
-    return onSubmit(text.trim())
+    return onSubmit({ text: text.trim(), url: url?.trim() })
       .then(async () => {
         setError(false);
-        setValue('');
+        setText('');
+        setURL(undefined);
         onClose();
         await mutate('entries');
       })
@@ -58,8 +66,9 @@ export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
   };
 
   useEffect(() => {
-    setValue(initialText ?? '');
-  }, [initialText]);
+    setText(initialValues?.text ?? '');
+    setURL(initialValues?.url);
+  }, [initialValues]);
 
   return (
     <Dialog open={open} fullWidth>
@@ -76,8 +85,17 @@ export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
             label="Text"
             fullWidth
             required
-            value={value}
-            onChange={handleChange}
+            value={text}
+            onChange={handleTextChange}
+            color="primary"
+            style={{ paddingBottom: '1em' }}
+          />
+          <TextField
+            type="url"
+            label="URL"
+            fullWidth
+            value={url}
+            onChange={handleURLChange}
             color="primary"
           />
         </DialogContent>
@@ -93,3 +111,5 @@ export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
     </Dialog>
   );
 };
+
+EntryDialogBase.displayName = 'EntryDialogBase';

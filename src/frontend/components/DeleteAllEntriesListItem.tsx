@@ -47,3 +47,5 @@ export const DeleteAllEntriesListItem: FunctionComponent<DeleteAllEntriesListIte
     </>
   );
 };
+
+DeleteAllEntriesListItem.displayName = 'DeleteAllEntriesListItem';

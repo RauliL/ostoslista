@@ -159,3 +159,5 @@ export const App: FunctionComponent = () => {
     </ThemeProvider>
   );
 };
+
+App.displayName = 'App';

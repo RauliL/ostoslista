@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react';
 import { patchEntry } from '../../api';
 import { SavedEntry } from '../../types';
 
-import { EntryDialogBase } from './EntryDialogBase';
+import { EntryDialogBase, EntryDialogValues } from './EntryDialogBase';
 
 export type EditEntryDialogProps = {
   entry?: SavedEntry;
@@ -16,14 +16,18 @@ export const EditEntryDialog: FunctionComponent<EditEntryDialogProps> = ({
   onClose,
   open,
 }) => {
-  const handleSubmit = (text: string): Promise<void> =>
+  const handleSubmit = (values: EntryDialogValues): Promise<void> =>
     entry
-      ? patchEntry(entry.id, { ...entry, text }).then(() => undefined)
+      ? patchEntry(entry.id, {
+          ...entry,
+          text: values.text,
+          url: values.url,
+        }).then(() => undefined)
       : Promise.reject(new Error('No entry selected.'));
 
   return (
     <EntryDialogBase
-      initialText={entry?.text ?? ''}
+      initialValues={{ text: entry?.text ?? '', url: entry?.url ?? undefined }}
       onClose={onClose}
       onSubmit={handleSubmit}
       open={open}
@@ -31,3 +35,5 @@ export const EditEntryDialog: FunctionComponent<EditEntryDialogProps> = ({
     />
   );
 };
+
+EditEntryDialog.displayName = 'EditEntryDialog';

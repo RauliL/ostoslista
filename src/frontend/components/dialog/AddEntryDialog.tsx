@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 
 import { createEntry } from '../../api';
 
-import { EntryDialogBase } from './EntryDialogBase';
+import { EntryDialogBase, EntryDialogValues } from './EntryDialogBase';
 
 export type AddEntryDialogProps = {
   onClose: () => void;
@@ -13,8 +13,8 @@ export const AddEntryDialog: FunctionComponent<AddEntryDialogProps> = ({
   onClose,
   open,
 }) => {
-  const handleSubmit = (text: string) =>
-    createEntry(text).then(() => undefined);
+  const handleSubmit = (values: EntryDialogValues) =>
+    createEntry(values.text, values.url).then(() => undefined);
 
   return (
     <EntryDialogBase
@@ -25,3 +25,5 @@ export const AddEntryDialog: FunctionComponent<AddEntryDialogProps> = ({
     />
   );
 };
+
+AddEntryDialog.displayName = 'AddEntryDialog';

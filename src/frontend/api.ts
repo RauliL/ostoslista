@@ -11,9 +11,9 @@ export const getAllEntries = (): Promise<SavedEntry[]> =>
       Object.entries(response.data).map(([id, entry]) => ({ ...entry, id }))
     );
 
-export const createEntry = (text: string): Promise<string> =>
+export const createEntry = (text: string, url?: string): Promise<string> =>
   client
-    .post<{ key: string }>('/', { text, done: false })
+    .post<{ key: string }>('/', { text, done: false, url })
     .then((response) => response.data.key);
 
 export const patchEntry = (id: string, entry: Entry): Promise<Entry> =>

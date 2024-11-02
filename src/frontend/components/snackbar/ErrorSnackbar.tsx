@@ -40,3 +40,5 @@ export const ErrorSnackbar: FunctionComponent<ErrorSnackbarProps> = ({
     </Snackbar>
   );
 };
+
+ErrorSnackbar.displayName = 'ErrorSnackbar';

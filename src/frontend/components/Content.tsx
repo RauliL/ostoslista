@@ -44,3 +44,5 @@ export const Content: FunctionComponent<ContentProps> = ({
     </div>
   </Container>
 );
+
+Content.displayName = 'Content';

@@ -48,3 +48,5 @@ export const Toolbar: FunctionComponent<ToolbarProps> = ({
     </AppBar>
   );
 };
+
+Toolbar.displayName = 'Toolbar';

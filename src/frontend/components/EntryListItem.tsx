@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
+import PreviewIcon from '@mui/icons-material/PreviewOutlined';
 import React, { FunctionComponent, useState } from 'react';
 
 import { SavedEntry } from '../types';
@@ -66,6 +67,15 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
       </ListItemIcon>
       <ListItemText primary={entry.text} />
       <ListItemSecondaryAction>
+        {entry.url && (
+          <IconButton
+            edge="end"
+            aria-label="delete"
+            onClick={() => window.open(entry.url!, '_blank')}
+          >
+            <PreviewIcon />
+          </IconButton>
+        )}
         <IconButton
           edge="end"
           aria-label="delete"
@@ -78,3 +88,5 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
     </ListItem>
   );
 };
+
+EntryListItem.displayName = 'EntryListItem';
