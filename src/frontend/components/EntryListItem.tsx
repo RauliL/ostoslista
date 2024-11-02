@@ -1,5 +1,5 @@
 import IconButton from '@mui/material/IconButton';
-import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListItemText from '@mui/material/ListItemText';
@@ -52,7 +52,7 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
   };
 
   return (
-    <ListItem button onDoubleClick={onSelect}>
+    <ListItemButton onDoubleClick={onSelect}>
       <ListItemIcon>
         <IconButton
           onClick={handleButtonClick(onToggle, 'toggle')}
@@ -85,7 +85,7 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
           <DeleteIcon />
         </IconButton>
       </ListItemSecondaryAction>
-    </ListItem>
+    </ListItemButton>
   );
 };
 

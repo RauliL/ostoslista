@@ -1,6 +1,7 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
+const { transform } = require('@formatjs/ts-transformer');
 
 const isProduction = /^prod/.test(process.env.NODE_ENV);
 const mode = isProduction ? 'production' : 'development';
@@ -27,7 +28,9 @@ module.exports = [
           test: /\.ts$/,
           exclude: /node_modules/,
           loader: 'ts-loader',
-          options: { configFile: path.resolve(__dirname, 'tsconfig.backend.json') },
+          options: {
+            configFile: path.resolve(__dirname, 'tsconfig.backend.json'),
+          },
         },
       ],
     },
@@ -75,7 +78,18 @@ module.exports = [
           test: /\.tsx?$/,
           exclude: /node_modules/,
           loader: 'ts-loader',
-          options: { configFile: path.resolve(__dirname, 'tsconfig.frontend.json') },
+          options: {
+            configFile: path.resolve(__dirname, 'tsconfig.frontend.json'),
+            getCustomTransformers() {
+              return {
+                before: [
+                  transform({
+                    overrideIdFn: '[sha512:contenthash:base64:6]',
+                  }),
+                ],
+              };
+            },
+          },
         },
       ],
     },

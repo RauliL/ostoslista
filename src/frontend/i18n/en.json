@@ -1,0 +1,14 @@
+{
+  "add": "Add",
+  "addNewEntry": "Add new entry",
+  "apiError": "API returned erroneous response.",
+  "cancel": "Cancel",
+  "deleteAll": "Delete all",
+  "deleteAllConfirmation": "Do you really want to delete all entries marked as done?",
+  "editEntry": "Edit entry",
+  "no": "No",
+  "text": "Text",
+  "url": "URL",
+  "unableToSaveChanges": "Unable to save changes.",
+  "yes": "Yes"
+}

@@ -3,6 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
 import CloseIcon from '@mui/icons-material/Close';
 import React, { FunctionComponent, SyntheticEvent } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 export type ErrorSnackbarProps = {
   onClose: () => void;
@@ -36,7 +37,12 @@ export const ErrorSnackbar: FunctionComponent<ErrorSnackbarProps> = ({
       autoHideDuration={6000}
       onClose={handleClose}
     >
-      <Alert severity="error">API returned erroneous response.</Alert>
+      <Alert severity="error">
+        <FormattedMessage
+          id="apiError"
+          defaultMessage="API returned erroneous response."
+        />
+      </Alert>
     </Snackbar>
   );
 };
