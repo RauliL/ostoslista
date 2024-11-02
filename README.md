@@ -10,7 +10,7 @@ implemented with [React] and [Material UI].
 
 ## Requirements
 
-* Node.js>=12
+* Node.js>=20
 
 ## How to get it up and running
 
