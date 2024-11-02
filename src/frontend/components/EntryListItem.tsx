@@ -1,5 +1,5 @@
 import IconButton from '@mui/material/IconButton';
-import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListItemText from '@mui/material/ListItemText';
@@ -34,25 +34,23 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
     toggle: false,
   });
 
-  const handleButtonClick = (
-    callback: () => Promise<void>,
-    key: keyof EntryListItemButtons
-  ) => () => {
-    setDisabledButtons((oldState) => ({
-      ...oldState,
-      [key]: true,
-    }));
-
-    callback().finally(() =>
+  const handleButtonClick =
+    (callback: () => Promise<void>, key: keyof EntryListItemButtons) => () => {
       setDisabledButtons((oldState) => ({
         ...oldState,
-        [key]: false,
-      }))
-    );
-  };
+        [key]: true,
+      }));
+
+      callback().finally(() =>
+        setDisabledButtons((oldState) => ({
+          ...oldState,
+          [key]: false,
+        }))
+      );
+    };
 
   return (
-    <ListItem button onDoubleClick={onSelect}>
+    <ListItemButton onDoubleClick={onSelect}>
       <ListItemIcon>
         <IconButton
           onClick={handleButtonClick(onToggle, 'toggle')}
@@ -85,7 +83,7 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
           <DeleteIcon />
         </IconButton>
       </ListItemSecondaryAction>
-    </ListItem>
+    </ListItemButton>
   );
 };
 

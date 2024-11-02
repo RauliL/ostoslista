@@ -5,11 +5,18 @@
     "esModuleInterop": true,
     "lib": ["DOM", "ESNext"],
     "jsx": "react",
+    "plugins": [
+      {
+        "ast": true,
+        "import": "transform",
+        "overrideIdFn": "[sha512:contenthash:base64:6]",
+        "transform": "@formatjs/ts-transformer",
+        "type": "config"
+      }
+    ],
+    "resolveJsonModule": true,
     "strict": true,
     "target": "ES5"
   },
-  "include": [
-    "./src/common/**/*.ts",
-    "./src/frontend/**/*.ts",
-  ]
+  "include": ["./src/common/**/*.ts", "./src/frontend/**/*.ts"]
 }

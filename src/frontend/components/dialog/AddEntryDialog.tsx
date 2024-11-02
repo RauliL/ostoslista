@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { createEntry } from '../../api';
 
@@ -21,7 +22,9 @@ export const AddEntryDialog: FunctionComponent<AddEntryDialogProps> = ({
       onClose={onClose}
       onSubmit={handleSubmit}
       open={open}
-      title="Add new entry"
+      title={
+        <FormattedMessage id="addNewEntry" defaultMessage="Add new entry" />
+      }
     />
   );
 };

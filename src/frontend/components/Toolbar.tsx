@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
 import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
-import React, { ChangeEvent, FunctionComponent } from 'react';
+import React, { FunctionComponent, SyntheticEvent } from 'react';
 
 import { EntryType } from '../types';
 
@@ -24,7 +24,7 @@ export const Toolbar: FunctionComponent<ToolbarProps> = ({
   onTabChange,
   selectedTab,
 }) => {
-  const handleTabChange = (ev: ChangeEvent<unknown>, selectedTab: EntryType) =>
+  const handleTabChange = (ev: SyntheticEvent, selectedTab: EntryType) =>
     onTabChange(selectedTab);
 
   return (

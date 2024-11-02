@@ -4,6 +4,7 @@ import { patchEntry } from '../../api';
 import { SavedEntry } from '../../types';
 
 import { EntryDialogBase, EntryDialogValues } from './EntryDialogBase';
+import { FormattedMessage } from 'react-intl';
 
 export type EditEntryDialogProps = {
   entry?: SavedEntry;
@@ -31,7 +32,7 @@ export const EditEntryDialog: FunctionComponent<EditEntryDialogProps> = ({
       onClose={onClose}
       onSubmit={handleSubmit}
       open={open}
-      title="Edit entry"
+      title={<FormattedMessage id="editEntry" defaultMessage="Edit entry" />}
     />
   );
 };

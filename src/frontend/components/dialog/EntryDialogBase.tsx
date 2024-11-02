@@ -9,9 +9,11 @@ import React, {
   ChangeEvent,
   FormEvent,
   FunctionComponent,
+  ReactNode,
   useEffect,
   useState,
 } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { mutate } from 'swr';
 
 export type EntryDialogValues = {
@@ -24,7 +26,7 @@ export type EntryDialogBaseProps = {
   onClose: () => void;
   onSubmit: (values: EntryDialogValues) => Promise<void>;
   open: boolean;
-  title: string;
+  title: ReactNode;
 };
 
 export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
@@ -77,12 +79,15 @@ export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
         <DialogContent>
           {error && (
             <DialogContentText color="error">
-              Unable to save changes.
+              <FormattedMessage
+                id="unableToSaveChanges"
+                defaultMessage="Unable to save changes."
+              />
             </DialogContentText>
           )}
           <TextField
             autoFocus
-            label="Text"
+            label={<FormattedMessage id="text" defaultMessage="Text" />}
             fullWidth
             required
             value={text}
@@ -92,7 +97,7 @@ export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
           />
           <TextField
             type="url"
-            label="URL"
+            label={<FormattedMessage id="url" defaultMessage="URL" />}
             fullWidth
             value={url}
             onChange={handleURLChange}
@@ -101,10 +106,10 @@ export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">
-            Cancel
+            <FormattedMessage id="cancel" defaultMessage="Cancel" />
           </Button>
           <Button type="submit" color="primary">
-            Add
+            <FormattedMessage id="add" defaultMessage="Add" />
           </Button>
         </DialogActions>
       </form>

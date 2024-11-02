@@ -1,9 +1,10 @@
 import IconButton from '@mui/material/IconButton';
-import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React, { FunctionComponent, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { DeleteAllConfirmationDialog } from './dialog';
 
@@ -11,13 +12,12 @@ export type DeleteAllEntriesListItemProps = {
   onClick: () => Promise<void>;
 };
 
-export const DeleteAllEntriesListItem: FunctionComponent<DeleteAllEntriesListItemProps> = ({
-  onClick,
-}) => {
+export const DeleteAllEntriesListItem: FunctionComponent<
+  DeleteAllEntriesListItemProps
+> = ({ onClick }) => {
   const [disabled, setDisabled] = useState<boolean>(false);
-  const [confirmationDialogOpen, setConfirmationDialogOpen] = useState<boolean>(
-    false
-  );
+  const [confirmationDialogOpen, setConfirmationDialogOpen] =
+    useState<boolean>(false);
 
   const handleClick = () => setConfirmationDialogOpen(true);
 
@@ -32,14 +32,18 @@ export const DeleteAllEntriesListItem: FunctionComponent<DeleteAllEntriesListIte
 
   return (
     <>
-      <ListItem button onClick={handleClick} disabled={disabled}>
+      <ListItemButton onClick={handleClick} disabled={disabled}>
         <ListItemIcon>
           <IconButton onClick={handleClick} disabled={disabled}>
             <DeleteIcon />
           </IconButton>
         </ListItemIcon>
-        <ListItemText primary="Delete all" />
-      </ListItem>
+        <ListItemText
+          primary={
+            <FormattedMessage id="deleteAll" defaultMessage="Delete all" />
+          }
+        />
+      </ListItemButton>
       <DeleteAllConfirmationDialog
         onAnswer={handleConfirmationAnswer}
         open={confirmationDialogOpen}

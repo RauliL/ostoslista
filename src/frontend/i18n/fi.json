@@ -1,0 +1,14 @@
+{
+  "add": "Lisää",
+  "addNewEntry": "Lisää uusi kohta",
+  "apiError": "Palvelin palautti virheen.",
+  "cancel": "Peruuta",
+  "deleteAll": "Poista kaikki",
+  "deleteAllConfirmation": "Haluatko varmasti poistaa kaikki valmiiksi merkityt kohteet?",
+  "editEntry": "Muokkaa",
+  "no": "Ei",
+  "text": "Teksti",
+  "url": "Verkko-osoite",
+  "unableToSaveChanges": "Tallentaminen epäonnistui.",
+  "yes": "Kyllä"
+}
