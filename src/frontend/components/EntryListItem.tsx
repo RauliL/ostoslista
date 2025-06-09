@@ -50,11 +50,12 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
     };
 
   return (
-    <ListItemButton onDoubleClick={onSelect}>
+    <ListItemButton onDoubleClick={onSelect} role="listitem">
       <ListItemIcon>
         <IconButton
           onClick={handleButtonClick(onToggle, 'toggle')}
           disabled={disabledButtons.toggle}
+          role="checkbox"
         >
           {entry.done ? (
             <CheckBoxOutlinedIcon />
@@ -68,8 +69,9 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
         {entry.url && (
           <IconButton
             edge="end"
-            aria-label="delete"
+            aria-label="open"
             onClick={() => window.open(entry.url!, '_blank')}
+            data-testid="open-button"
           >
             <PreviewIcon />
           </IconButton>
@@ -79,6 +81,7 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
           aria-label="delete"
           onClick={handleButtonClick(onDelete, 'delete')}
           disabled={disabledButtons.delete}
+          data-testid="delete-button"
         >
           <DeleteIcon />
         </IconButton>

@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['20', '22', '23']
+        node: [20.x, 22.x, 24.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -15,7 +15,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - run: yarn install
-      - run: yarn lint
-      - run: yarn style:check
-      - run: yarn build
+      - name: Install dependencies
+        run: yarn install
+      - name: Check code style
+        run: yarn style:check
+      - name: Run ESLint
+        run: yarn lint
+      - name: Run test cases
+        run: yarn test
+      - name: Build the entire project
+        run: yarn build

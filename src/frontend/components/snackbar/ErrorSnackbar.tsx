@@ -29,6 +29,7 @@ export const ErrorSnackbar: FunctionComponent<ErrorSnackbarProps> = ({
           aria-label="close"
           color="inherit"
           onClick={handleClose}
+          data-testid="close-button"
         >
           <CloseIcon fontSize="small" />
         </IconButton>
