@@ -2,22 +2,20 @@ import axios from 'axios';
 
 import { Entry, SavedEntry } from './types';
 
-const client = axios.create({ baseURL: '/api' });
-
 export const getAllEntries = (): Promise<SavedEntry[]> =>
-  client
-    .get<Record<string, Entry>>('/')
+  axios
+    .get<Record<string, Entry>>('/api')
     .then((response) =>
       Object.entries(response.data).map(([id, entry]) => ({ ...entry, id }))
     );
 
 export const createEntry = (text: string, url?: string): Promise<string> =>
-  client
-    .post<{ key: string }>('/', { text, done: false, url })
+  axios
+    .post<{ key: string }>('/api', { text, done: false, url })
     .then((response) => response.data.key);
 
 export const patchEntry = (id: string, entry: Entry): Promise<Entry> =>
-  client.patch<Entry>(`/${id}`, entry).then((response) => response.data);
+  axios.patch<Entry>(`/api/${id}`, entry).then((response) => response.data);
 
 export const deleteEntry = (id: string): Promise<Entry> =>
-  client.delete<Entry>(`/${id}`).then((response) => response.data);
+  axios.delete<Entry>(`/api/${id}`).then((response) => response.data);
