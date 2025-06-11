@@ -1,7 +1,7 @@
-import * as yup from 'yup';
+import { z } from 'zod/v4';
 
-export const entrySchema = yup.object().shape({
-  text: yup.string().required().max(150),
-  done: yup.boolean().required(),
-  url: yup.string().url().nullable(),
+export const entrySchema = z.object({
+  text: z.string().max(150),
+  done: z.boolean(),
+  url: z.url().optional(),
 });
