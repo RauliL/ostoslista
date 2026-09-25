@@ -1,17 +1,17 @@
-import axios from 'axios';
+import axios from "axios";
 
-import { Entry, SavedEntry } from './types';
+import { Entry, SavedEntry } from "./types";
 
 export const getAllEntries = (): Promise<SavedEntry[]> =>
   axios
-    .get<Record<string, Entry>>('/api')
+    .get<Record<string, Entry>>("/api")
     .then((response) =>
-      Object.entries(response.data).map(([id, entry]) => ({ ...entry, id }))
+      Object.entries(response.data).map(([id, entry]) => ({ ...entry, id })),
     );
 
 export const createEntry = (text: string, url?: string): Promise<string> =>
   axios
-    .post<{ key: string }>('/api', { text, done: false, url })
+    .post<{ key: string }>("/api", { text, done: false, url })
     .then((response) => response.data.key);
 
 export const patchEntry = (id: string, entry: Entry): Promise<Entry> =>

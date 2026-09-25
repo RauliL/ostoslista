@@ -1,15 +1,15 @@
-import AppBar from '@mui/material/AppBar';
-import IconButton from '@mui/material/IconButton';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-import MuiToolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import AddIcon from '@mui/icons-material/Add';
-import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
-import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
-import React, { FunctionComponent, SyntheticEvent } from 'react';
+import AppBar from "@mui/material/AppBar";
+import IconButton from "@mui/material/IconButton";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import MuiToolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import AddIcon from "@mui/icons-material/Add";
+import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
+import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
+import React, { FunctionComponent, SyntheticEvent } from "react";
 
-import { EntryType } from '../types';
+import { EntryType } from "../types";
 
 export type ToolbarProps = {
   preferDarkMode: boolean;
@@ -28,7 +28,7 @@ export const Toolbar: FunctionComponent<ToolbarProps> = ({
     onTabChange(selectedTab);
 
   return (
-    <AppBar color={preferDarkMode ? 'default' : 'primary'} position="sticky">
+    <AppBar color={preferDarkMode ? "default" : "primary"} position="sticky">
       <MuiToolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Ostoslista
@@ -49,4 +49,4 @@ export const Toolbar: FunctionComponent<ToolbarProps> = ({
   );
 };
 
-Toolbar.displayName = 'Toolbar';
+Toolbar.displayName = "Toolbar";

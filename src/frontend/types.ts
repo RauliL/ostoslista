@@ -6,4 +6,4 @@ export type Entry = {
 
 export type SavedEntry = Entry & { id: string };
 
-export type EntryType = 'todo' | 'done';
+export type EntryType = "todo" | "done";

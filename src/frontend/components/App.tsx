@@ -1,18 +1,18 @@
-import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { IntlProvider } from 'react-intl';
-import { mutate } from 'swr';
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { IntlProvider } from "react-intl";
+import { mutate } from "swr";
 
-import { deleteEntry, patchEntry } from '../api';
-import { useAllEntries, usePreferDarkMode } from '../hooks';
-import { getBrowserLanguage, translations } from '../i18n';
-import { EntryType, SavedEntry } from '../types';
+import { deleteEntry, patchEntry } from "../api";
+import { useAllEntries, usePreferDarkMode } from "../hooks";
+import { getBrowserLanguage, translations } from "../i18n";
+import { EntryType, SavedEntry } from "../types";
 
-import { Content } from './Content';
-import { Toolbar } from './Toolbar';
-import { AddEntryDialog, EditEntryDialog } from './dialog';
-import { ErrorSnackbar } from './snackbar';
+import { Content } from "./Content";
+import { Toolbar } from "./Toolbar";
+import { AddEntryDialog, EditEntryDialog } from "./dialog";
+import { ErrorSnackbar } from "./snackbar";
 
 type AppState = {
   addEntryDialogOpen: boolean;
@@ -28,11 +28,11 @@ export const App: FunctionComponent = () => {
     addEntryDialogOpen: false,
     editEntryDialogOpen: false,
     errorSnackbarOpen: false,
-    selectedTab: 'todo',
+    selectedTab: "todo",
   });
   const preferDarkMode = usePreferDarkMode();
   const theme = createTheme({
-    palette: { mode: preferDarkMode ? 'dark' : 'light' },
+    palette: { mode: preferDarkMode ? "dark" : "light" },
   });
   const language = getBrowserLanguage();
 
@@ -67,7 +67,7 @@ export const App: FunctionComponent = () => {
   const handleEntryToggle = (entry: SavedEntry) =>
     patchEntry(entry.id, { ...entry, done: !entry.done })
       .then(async () => {
-        await mutate('entries');
+        await mutate("entries");
       })
       .catch((err) => {
         console.error(err);
@@ -80,7 +80,7 @@ export const App: FunctionComponent = () => {
   const handleEntryDelete = (entry: SavedEntry) =>
     deleteEntry(entry.id)
       .then(async () => {
-        await mutate('entries');
+        await mutate("entries");
       })
       .catch((err) => {
         console.error(err);
@@ -102,7 +102,7 @@ export const App: FunctionComponent = () => {
       ? Promise.resolve(undefined)
       : Promise.all(doneEntries.map((entry) => deleteEntry(entry.id)))
           .then(async () => {
-            await mutate('entries');
+            await mutate("entries");
           })
           .catch((err) => {
             console.error(err);
@@ -165,4 +165,4 @@ export const App: FunctionComponent = () => {
   );
 };
 
-App.displayName = 'App';
+App.displayName = "App";

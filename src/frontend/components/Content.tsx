@@ -1,9 +1,9 @@
-import Container from '@mui/material/Container';
-import React, { FunctionComponent } from 'react';
+import Container from "@mui/material/Container";
+import React, { FunctionComponent } from "react";
 
-import { EntryType, SavedEntry } from '../types';
+import { EntryType, SavedEntry } from "../types";
 
-import { EntryList } from './EntryList';
+import { EntryList } from "./EntryList";
 
 export type ContentProps = {
   doneEntries: SavedEntry[];
@@ -25,7 +25,7 @@ export const Content: FunctionComponent<ContentProps> = ({
   todoEntries,
 }) => (
   <Container>
-    <div hidden={selectedTab !== 'todo'}>
+    <div hidden={selectedTab !== "todo"}>
       <EntryList
         entries={todoEntries}
         onEntryDelete={onEntryDelete}
@@ -33,7 +33,7 @@ export const Content: FunctionComponent<ContentProps> = ({
         onEntryToggle={onEntryToggle}
       />
     </div>
-    <div hidden={selectedTab !== 'done'}>
+    <div hidden={selectedTab !== "done"}>
       <EntryList
         entries={doneEntries}
         onDeleteAllEntries={onDeleteAllDoneEntries}
@@ -45,4 +45,4 @@ export const Content: FunctionComponent<ContentProps> = ({
   </Container>
 );
 
-Content.displayName = 'Content';
+Content.displayName = "Content";

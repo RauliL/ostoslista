@@ -1,21 +1,21 @@
-import { normalizePort } from '@fvilers/normalize-port';
-import express from 'express';
-import path from 'node:path';
+import { normalizePort } from "@fvilers/normalize-port";
+import express from "express";
+import path from "node:path";
 
-import app from './app.js';
+import app from "./app.js";
 
-const clientDir = path.join(import.meta.dirname, 'client');
+const clientDir = path.join(import.meta.dirname, "client");
 
-app.use('/', express.static(clientDir, { index: 'index.html' }));
+app.use("/", express.static(clientDir, { index: "index.html" }));
 app.use((req, res, next) => {
-  if (req.method === 'GET' && !req.path.startsWith('/api')) {
-    res.sendFile(path.join(clientDir, 'index.html'));
+  if (req.method === "GET" && !req.path.startsWith("/api")) {
+    res.sendFile(path.join(clientDir, "index.html"));
   } else {
     next();
   }
 });
 
-const port = normalizePort(process.env.PORT ?? '3000');
+const port = normalizePort(process.env.PORT ?? "3000");
 if (port === false) {
   throw new Error(`Invalid PORT: ${process.env.PORT}`);
 }

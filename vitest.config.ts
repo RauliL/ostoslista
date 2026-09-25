@@ -1,19 +1,19 @@
-import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vitest/config';
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'happy-dom',
+    environment: "happy-dom",
     env: {
-      NODE_ENV: 'test',
+      NODE_ENV: "test",
     },
-    setupFiles: ['./vitest.setup.ts'],
+    setupFiles: ["./vitest.setup.ts"],
     coverage: {
-      include: ['src/**/*.{ts,tsx}'],
-      exclude: ['src/**/*.test.{ts,tsx}', 'src/**/test/**'],
-      provider: 'v8',
-      reporter: ['lcov', 'text'],
+      include: ["src/**/*.{ts,tsx}"],
+      exclude: ["src/**/*.test.{ts,tsx}", "src/**/test/**"],
+      provider: "v8",
+      reporter: ["lcov", "text"],
     },
   },
 });

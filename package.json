@@ -29,8 +29,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint",
-    "style:check": "prettier --check './src/**/*.{ts,tsx,mjs}'",
-    "style:fix": "prettier --write './src/**/*.{ts,tsx,mjs}'",
+    "style:check": "prettier --check .",
+    "style:fix": "prettier --write .",
     "prebuild": "$npm_execpath run clean",
     "prepack": "env NODE_ENV=production $npm_execpath run build"
   },

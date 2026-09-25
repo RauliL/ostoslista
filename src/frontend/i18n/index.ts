@@ -1,8 +1,8 @@
-import enTranslations from './en.json';
-import fiTranslations from './fi.json';
+import enTranslations from "./en.json";
+import fiTranslations from "./fi.json";
 
-const SUPPORTED_LANGUAGES = new Set<string>(['en', 'fi']);
-const DEFAULT_LANGUAGE = 'en';
+const SUPPORTED_LANGUAGES = new Set<string>(["en", "fi"]);
+const DEFAULT_LANGUAGE = "en";
 
 export const translations: Record<string, Record<string, string>> = {
   en: enTranslations,

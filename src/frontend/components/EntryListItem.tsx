@@ -1,15 +1,15 @@
-import IconButton from '@mui/material/IconButton';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
-import ListItemText from '@mui/material/ListItemText';
-import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
-import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
-import DeleteIcon from '@mui/icons-material/Delete';
-import PreviewIcon from '@mui/icons-material/PreviewOutlined';
-import React, { FunctionComponent, useState } from 'react';
+import IconButton from "@mui/material/IconButton";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import ListItemText from "@mui/material/ListItemText";
+import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
+import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
+import DeleteIcon from "@mui/icons-material/Delete";
+import PreviewIcon from "@mui/icons-material/PreviewOutlined";
+import React, { FunctionComponent, useState } from "react";
 
-import { SavedEntry } from '../types';
+import { SavedEntry } from "../types";
 
 export type EntryListItemProps = {
   entry: SavedEntry;
@@ -29,10 +29,12 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
   onSelect,
   onToggle,
 }) => {
-  const [disabledButtons, setDisabledButtons] = useState<EntryListItemButtons>({
-    delete: false,
-    toggle: false,
-  });
+  const [disabledButtons, setDisabledButtons] = useState<EntryListItemButtons>(
+    {
+      delete: false,
+      toggle: false,
+    },
+  );
 
   const handleButtonClick =
     (callback: () => Promise<void>, key: keyof EntryListItemButtons) => () => {
@@ -45,7 +47,7 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
         setDisabledButtons((oldState) => ({
           ...oldState,
           [key]: false,
-        }))
+        })),
       );
     };
 
@@ -53,7 +55,7 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
     <ListItemButton onDoubleClick={onSelect} role="listitem">
       <ListItemIcon>
         <IconButton
-          onClick={handleButtonClick(onToggle, 'toggle')}
+          onClick={handleButtonClick(onToggle, "toggle")}
           disabled={disabledButtons.toggle}
           role="checkbox"
         >
@@ -70,7 +72,7 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
           <IconButton
             edge="end"
             aria-label="open"
-            onClick={() => window.open(entry.url!, '_blank')}
+            onClick={() => window.open(entry.url!, "_blank")}
             data-testid="open-button"
           >
             <PreviewIcon />
@@ -79,7 +81,7 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
         <IconButton
           edge="end"
           aria-label="delete"
-          onClick={handleButtonClick(onDelete, 'delete')}
+          onClick={handleButtonClick(onDelete, "delete")}
           disabled={disabledButtons.delete}
           data-testid="delete-button"
         >
@@ -90,4 +92,4 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
   );
 };
 
-EntryListItem.displayName = 'EntryListItem';
+EntryListItem.displayName = "EntryListItem";

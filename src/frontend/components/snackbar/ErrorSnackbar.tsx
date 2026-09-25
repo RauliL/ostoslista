@@ -1,9 +1,9 @@
-import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import Snackbar from '@mui/material/Snackbar';
-import CloseIcon from '@mui/icons-material/Close';
-import React, { FunctionComponent, SyntheticEvent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import Alert from "@mui/material/Alert";
+import IconButton from "@mui/material/IconButton";
+import Snackbar from "@mui/material/Snackbar";
+import CloseIcon from "@mui/icons-material/Close";
+import React, { FunctionComponent, SyntheticEvent } from "react";
+import { FormattedMessage } from "react-intl";
 
 export type ErrorSnackbarProps = {
   onClose: () => void;
@@ -15,14 +15,14 @@ export const ErrorSnackbar: FunctionComponent<ErrorSnackbarProps> = ({
   open,
 }) => {
   const handleClose = (event: Event | SyntheticEvent, reason?: string) => {
-    if (reason !== 'clickaway') {
+    if (reason !== "clickaway") {
       onClose();
     }
   };
 
   return (
     <Snackbar
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       action={
         <IconButton
           size="small"
@@ -48,4 +48,4 @@ export const ErrorSnackbar: FunctionComponent<ErrorSnackbarProps> = ({
   );
 };
 
-ErrorSnackbar.displayName = 'ErrorSnackbar';
+ErrorSnackbar.displayName = "ErrorSnackbar";

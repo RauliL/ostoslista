@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import React, { FunctionComponent } from "react";
+import { FormattedMessage } from "react-intl";
 
-import { createEntry } from '../../api';
+import { createEntry } from "../../api";
 
-import { EntryDialogBase, EntryDialogValues } from './EntryDialogBase';
+import { EntryDialogBase, EntryDialogValues } from "./EntryDialogBase";
 
 export type AddEntryDialogProps = {
   onClose: () => void;
@@ -29,4 +29,4 @@ export const AddEntryDialog: FunctionComponent<AddEntryDialogProps> = ({
   );
 };
 
-AddEntryDialog.displayName = 'AddEntryDialog';
+AddEntryDialog.displayName = "AddEntryDialog";

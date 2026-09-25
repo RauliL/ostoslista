@@ -1,10 +1,10 @@
-import List from '@mui/material/List';
-import React, { FunctionComponent } from 'react';
+import List from "@mui/material/List";
+import React, { FunctionComponent } from "react";
 
-import { SavedEntry } from '../types';
+import { SavedEntry } from "../types";
 
-import { DeleteAllEntriesListItem } from './DeleteAllEntriesListItem';
-import { EntryListItem } from './EntryListItem';
+import { DeleteAllEntriesListItem } from "./DeleteAllEntriesListItem";
+import { EntryListItem } from "./EntryListItem";
 
 export type EntryListProps = {
   entries: SavedEntry[];
@@ -37,4 +37,4 @@ export const EntryList: FunctionComponent<EntryListProps> = ({
   </List>
 );
 
-EntryList.displayName = 'EntryList';
+EntryList.displayName = "EntryList";

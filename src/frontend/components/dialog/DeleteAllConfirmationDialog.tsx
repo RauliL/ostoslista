@@ -1,9 +1,9 @@
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import React, { FunctionComponent } from "react";
+import { FormattedMessage } from "react-intl";
 
 export type DeleteAllConfirmationDialogProps = {
   onAnswer: (answer: boolean) => void;
@@ -35,4 +35,4 @@ export const DeleteAllConfirmationDialog: FunctionComponent<
   );
 };
 
-DeleteAllConfirmationDialog.displayName = 'DeleteAllConfirmationDialog';
+DeleteAllConfirmationDialog.displayName = "DeleteAllConfirmationDialog";

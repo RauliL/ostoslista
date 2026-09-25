@@ -1,10 +1,10 @@
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import TextField from "@mui/material/TextField";
 import React, {
   ChangeEvent,
   FormEvent,
@@ -12,9 +12,9 @@ import React, {
   ReactNode,
   useEffect,
   useState,
-} from 'react';
-import { FormattedMessage } from 'react-intl';
-import { mutate } from 'swr';
+} from "react";
+import { FormattedMessage } from "react-intl";
+import { mutate } from "swr";
 
 export type EntryDialogValues = {
   text: string;
@@ -37,7 +37,7 @@ export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
   title,
 }) => {
   const [error, setError] = useState<boolean>(false);
-  const [text, setText] = useState<string>('');
+  const [text, setText] = useState<string>("");
   const [url, setURL] = useState<string | undefined>();
 
   const handleTextChange = (event: ChangeEvent<HTMLInputElement>) =>
@@ -57,10 +57,10 @@ export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
     return onSubmit({ text: text.trim(), url: url?.trim() })
       .then(async () => {
         setError(false);
-        setText('');
+        setText("");
         setURL(undefined);
         onClose();
-        await mutate('entries');
+        await mutate("entries");
       })
       .catch(() => {
         setError(true);
@@ -68,7 +68,7 @@ export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
   };
 
   useEffect(() => {
-    setText(initialValues?.text ?? '');
+    setText(initialValues?.text ?? "");
     setURL(initialValues?.url);
   }, [initialValues]);
 
@@ -93,7 +93,7 @@ export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
             value={text}
             onChange={handleTextChange}
             color="primary"
-            style={{ paddingBottom: '1em' }}
+            style={{ paddingBottom: "1em" }}
           />
           <TextField
             type="url"
@@ -117,4 +117,4 @@ export const EntryDialogBase: FunctionComponent<EntryDialogBaseProps> = ({
   );
 };
 
-EntryDialogBase.displayName = 'EntryDialogBase';
+EntryDialogBase.displayName = "EntryDialogBase";

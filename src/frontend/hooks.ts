@@ -1,22 +1,22 @@
-import { partition } from 'lodash';
-import { useEffect, useState } from 'react';
-import useSWR from 'swr';
+import { partition } from "lodash";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
 
-import { getAllEntries } from './api';
-import { SavedEntry } from './types';
+import { getAllEntries } from "./api";
+import { SavedEntry } from "./types";
 
 export const useAllEntries = (): {
   todoEntries: SavedEntry[];
   doneEntries: SavedEntry[];
   error: Error | undefined;
 } => {
-  const { data, error } = useSWR('entries', getAllEntries);
+  const { data, error } = useSWR("entries", getAllEntries);
   const [todoEntries, setTodoEntries] = useState<SavedEntry[]>([]);
   const [doneEntries, setDoneEntries] = useState<SavedEntry[]>([]);
 
   useEffect(() => {
     if (data != null) {
-      const [doneEntries, todoEntries] = partition(data, 'done');
+      const [doneEntries, todoEntries] = partition(data, "done");
 
       setTodoEntries(todoEntries);
       setDoneEntries(doneEntries);
@@ -33,13 +33,13 @@ export const useAllEntries = (): {
 export const usePreferDarkMode = (): boolean => {
   const [darkMode, setDarkMode] = useState<boolean>(
     window.matchMedia
-      ? window.matchMedia('(prefers-color-scheme: dark)').matches
-      : false
+      ? window.matchMedia("(prefers-color-scheme: dark)").matches
+      : false,
   );
 
   useEffect(() => {
     const mediaQueryList = window.matchMedia
-      ? window.matchMedia('(prefers-color-scheme: dark)')
+      ? window.matchMedia("(prefers-color-scheme: dark)")
       : undefined;
     let changeListener: () => void | undefined;
 
@@ -47,12 +47,12 @@ export const usePreferDarkMode = (): boolean => {
       changeListener = () => {
         setDarkMode(mediaQueryList.matches);
       };
-      mediaQueryList.addEventListener('change', changeListener);
+      mediaQueryList.addEventListener("change", changeListener);
     }
 
     return () => {
       if (mediaQueryList) {
-        mediaQueryList.removeEventListener('change', changeListener);
+        mediaQueryList.removeEventListener("change", changeListener);
       }
     };
   }, []);

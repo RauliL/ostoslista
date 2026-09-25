@@ -1,18 +1,18 @@
-import { cleanup, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { noop } from 'lodash';
-import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { cleanup, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { noop } from "lodash";
+import React from "react";
+import { IntlProvider } from "react-intl";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
   DeleteAllConfirmationDialog,
   DeleteAllConfirmationDialogProps,
-} from './DeleteAllConfirmationDialog';
+} from "./DeleteAllConfirmationDialog";
 
-describe('<DeleteAllConfirmationDialog/>', () => {
+describe("<DeleteAllConfirmationDialog/>", () => {
   const renderComponent = (
-    props: Partial<DeleteAllConfirmationDialogProps> = {}
+    props: Partial<DeleteAllConfirmationDialogProps> = {},
   ) =>
     render(
       <IntlProvider locale="en">
@@ -20,7 +20,7 @@ describe('<DeleteAllConfirmationDialog/>', () => {
           onAnswer={props.onAnswer ?? noop}
           open={props.open ?? true}
         />
-      </IntlProvider>
+      </IntlProvider>,
     );
 
   afterEach(cleanup);
@@ -30,7 +30,7 @@ describe('<DeleteAllConfirmationDialog/>', () => {
 
     renderComponent({ onAnswer });
 
-    await userEvent.click(screen.getByRole('button', { name: /yes/i }));
+    await userEvent.click(screen.getByRole("button", { name: /yes/i }));
 
     expect(onAnswer).toBeCalledWith(true);
   });
@@ -40,7 +40,7 @@ describe('<DeleteAllConfirmationDialog/>', () => {
 
     renderComponent({ onAnswer });
 
-    await userEvent.click(screen.getByRole('button', { name: /no/i }));
+    await userEvent.click(screen.getByRole("button", { name: /no/i }));
 
     expect(onAnswer).toBeCalledWith(false);
   });

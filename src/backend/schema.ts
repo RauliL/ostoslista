@@ -1,4 +1,4 @@
-import { z } from 'zod/v4';
+import { z } from "zod/v4";
 
 export const entrySchema = z.object({
   text: z.string().max(150),
