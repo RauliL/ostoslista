@@ -1,8 +1,9 @@
-import { noop } from "lodash";
+import { noop } from "lodash-es";
 import { cleanup, render, screen } from "@testing-library/react";
 import React from "react";
 import { IntlProvider } from "react-intl";
 import { afterEach, describe, expect, it } from "vitest";
+
 import { ErrorSnackbar, ErrorSnackbarProps } from "./ErrorSnackbar";
 
 describe("<ErrorSnackbar/>", () => {
