@@ -15,10 +15,10 @@ const language = getBrowserLanguage();
 
 root.render(
   <StrictMode>
-    <InitColorSchemeScript />
+    <InitColorSchemeScript defaultMode="system" />
     <ThemeProvider theme={theme}>
+      <CssBaseline enableColorScheme />
       <IntlProvider locale={language} messages={translations[language]}>
-        <CssBaseline />
         <App />
       </IntlProvider>
     </ThemeProvider>
