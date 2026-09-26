@@ -12,14 +12,12 @@ import React, { FunctionComponent, SyntheticEvent } from "react";
 import { EntryType } from "../types";
 
 export type ToolbarProps = {
-  preferDarkMode: boolean;
   onAddEntry: () => void;
   onTabChange: (selectedTab: EntryType) => void;
   selectedTab: EntryType;
 };
 
 export const Toolbar: FunctionComponent<ToolbarProps> = ({
-  preferDarkMode,
   onAddEntry,
   onTabChange,
   selectedTab,
@@ -28,7 +26,7 @@ export const Toolbar: FunctionComponent<ToolbarProps> = ({
     onTabChange(selectedTab);
 
   return (
-    <AppBar color={preferDarkMode ? "default" : "primary"} position="sticky">
+    <AppBar position="sticky">
       <MuiToolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Ostoslista

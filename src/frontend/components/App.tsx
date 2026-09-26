@@ -1,12 +1,9 @@
 import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { IntlProvider } from "react-intl";
 import { mutate } from "swr";
 
 import { deleteEntry, patchEntry } from "../api";
-import { useAllEntries, usePreferDarkMode } from "../hooks";
-import { getBrowserLanguage, translations } from "../i18n";
+import { useAllEntries } from "../hooks";
 import { EntryType, SavedEntry } from "../types";
 
 import { Content } from "./Content";
@@ -30,11 +27,6 @@ export const App: FunctionComponent = () => {
     errorSnackbarOpen: false,
     selectedTab: "todo",
   });
-  const preferDarkMode = usePreferDarkMode();
-  const theme = createTheme({
-    palette: { mode: preferDarkMode ? "dark" : "light" },
-  });
-  const language = getBrowserLanguage();
 
   const handleTabChange = (selectedTab: EntryType) => {
     setState((oldState) => ({
@@ -129,39 +121,36 @@ export const App: FunctionComponent = () => {
   }, [error]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <IntlProvider locale={language} messages={translations[language]}>
-        <CssBaseline />
-        <Toolbar
-          preferDarkMode={preferDarkMode}
-          onAddEntry={handleAddEntryButtonClick}
-          onTabChange={handleTabChange}
-          selectedTab={state.selectedTab}
-        />
-        <Content
-          doneEntries={doneEntries}
-          onDeleteAllDoneEntries={handleDeleteAllDoneEntries}
-          onEntryDelete={handleEntryDelete}
-          onEntrySelect={handleEntrySelect}
-          onEntryToggle={handleEntryToggle}
-          selectedTab={state.selectedTab}
-          todoEntries={todoEntries}
-        />
-        <AddEntryDialog
-          open={state.addEntryDialogOpen}
-          onClose={handleAddEntryDialogClose}
-        />
-        <EditEntryDialog
-          entry={state.selectedEntry}
-          open={state.editEntryDialogOpen}
-          onClose={handleEditEntryDialogClose}
-        />
-        <ErrorSnackbar
-          onClose={handleErrorSnackbarClose}
-          open={state.errorSnackbarOpen}
-        />
-      </IntlProvider>
-    </ThemeProvider>
+    <>
+      <CssBaseline />
+      <Toolbar
+        onAddEntry={handleAddEntryButtonClick}
+        onTabChange={handleTabChange}
+        selectedTab={state.selectedTab}
+      />
+      <Content
+        doneEntries={doneEntries}
+        onDeleteAllDoneEntries={handleDeleteAllDoneEntries}
+        onEntryDelete={handleEntryDelete}
+        onEntrySelect={handleEntrySelect}
+        onEntryToggle={handleEntryToggle}
+        selectedTab={state.selectedTab}
+        todoEntries={todoEntries}
+      />
+      <AddEntryDialog
+        open={state.addEntryDialogOpen}
+        onClose={handleAddEntryDialogClose}
+      />
+      <EditEntryDialog
+        entry={state.selectedEntry}
+        open={state.editEntryDialogOpen}
+        onClose={handleEditEntryDialogClose}
+      />
+      <ErrorSnackbar
+        onClose={handleErrorSnackbarClose}
+        open={state.errorSnackbarOpen}
+      />
+    </>
   );
 };
 
