@@ -1,4 +1,5 @@
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -17,6 +18,7 @@ root.render(
     <InitColorSchemeScript />
     <ThemeProvider theme={theme}>
       <IntlProvider locale={language} messages={translations[language]}>
+        <CssBaseline />
         <App />
       </IntlProvider>
     </ThemeProvider>
