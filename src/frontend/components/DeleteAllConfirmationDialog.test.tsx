@@ -32,7 +32,7 @@ describe("<DeleteAllConfirmationDialog/>", () => {
 
     await userEvent.click(screen.getByRole("button", { name: /yes/i }));
 
-    expect(onAnswer).toBeCalledWith(true);
+    expect(onAnswer).toHaveBeenCalledWith(true);
   });
 
   it('should invoke `onAnswer` callback with `false` if user clicks "No"-button', async () => {
@@ -42,6 +42,6 @@ describe("<DeleteAllConfirmationDialog/>", () => {
 
     await userEvent.click(screen.getByRole("button", { name: /no/i }));
 
-    expect(onAnswer).toBeCalledWith(false);
+    expect(onAnswer).toHaveBeenCalledWith(false);
   });
 });

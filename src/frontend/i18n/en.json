@@ -7,6 +7,7 @@
   "deleteAllConfirmation": "Do you really want to delete all entries marked as done?",
   "editEntry": "Edit entry",
   "no": "No",
+  "notFound": "404 – Page not found",
   "text": "Text",
   "url": "URL",
   "unableToSaveChanges": "Unable to save changes.",

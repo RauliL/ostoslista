@@ -1,103 +1,171 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { afterEach, describe, expect, it, vi } from "vitest";
 import React from "react";
 import { IntlProvider } from "react-intl";
-import { noop } from "lodash-es";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import { deleteEntry, patchEntry } from "../api";
+import { useAllEntries } from "../hooks";
 import { SavedEntry } from "../types";
 import { EntryList, EntryListProps } from "./EntryList";
 
-const mockEntry: Readonly<SavedEntry> = {
+vi.mock("../hooks", () => ({
+  useAllEntries: vi.fn(),
+}));
+
+vi.mock("../api", () => ({
+  deleteEntry: vi.fn(() => Promise.resolve({})),
+  patchEntry: vi.fn(() => Promise.resolve({})),
+}));
+
+vi.mock("swr", () => ({
+  mutate: vi.fn(() => Promise.resolve()),
+}));
+
+const mockUseAllEntries = vi.mocked(useAllEntries);
+const mockDeleteEntry = vi.mocked(deleteEntry);
+const mockPatchEntry = vi.mocked(patchEntry);
+
+const mockTodoEntry: Readonly<SavedEntry> = {
   id: "0985042c-450f-11f0-b247-173dddeb6042",
   text: "Test",
   done: false,
 };
 
+const mockDoneEntry: Readonly<SavedEntry> = {
+  id: "1985042c-450f-11f0-b247-173dddeb6043",
+  text: "Done test",
+  done: true,
+};
+
 describe("<EntryList/>", () => {
   const renderComponent = (props: Partial<EntryListProps> = {}) =>
     render(
-      <IntlProvider locale="en">
-        <EntryList
-          entries={props.entries ?? []}
-          onDeleteAllEntries={props.onDeleteAllEntries}
-          onEntryDelete={props.onEntryDelete ?? (() => Promise.resolve())}
-          onEntrySelect={props.onEntrySelect ?? noop}
-          onEntryToggle={props.onEntryToggle ?? (() => Promise.resolve())}
-        />
-      </IntlProvider>,
+      <MemoryRouter>
+        <IntlProvider locale="en">
+          <Routes>
+            <Route
+              path="/"
+              element={<EntryList type={props.type ?? "todo"} />}
+            />
+            <Route path="/edit/:id" element={<div>Edit view</div>} />
+          </Routes>
+        </IntlProvider>
+      </MemoryRouter>,
     );
+
+  beforeEach(() => {
+    mockUseAllEntries.mockReturnValue({
+      todoEntries: [],
+      doneEntries: [],
+      error: undefined,
+    });
+    mockDeleteEntry.mockClear();
+    mockPatchEntry.mockClear();
+  });
 
   afterEach(cleanup);
 
-  it("should not render delete all entries button if no callback is given", () => {
-    renderComponent({ onDeleteAllEntries: undefined, entries: [mockEntry] });
+  it("should not render delete all entries button for todo lists", async () => {
+    mockUseAllEntries.mockReturnValue({
+      todoEntries: [mockTodoEntry],
+      doneEntries: [],
+      error: undefined,
+    });
 
+    renderComponent({ type: "todo" });
+
+    await waitFor(() => {
+      expect(screen.getByRole("listitem")).toBeInTheDocument();
+    });
     expect(screen.queryByText(/delete all/i)).not.toBeInTheDocument();
   });
 
   it("should not render delete all entries button if the entry list is empty", () => {
-    renderComponent({
-      onDeleteAllEntries: () => Promise.resolve(),
-      entries: [],
-    });
+    renderComponent({ type: "done" });
 
     expect(screen.queryByText(/delete all/i)).not.toBeInTheDocument();
   });
 
-  it("should invoke `onDeleteAllEntries` callback when delete all entries button is clicked", async () => {
-    const onDeleteAllEntries = vi.fn(() => Promise.resolve());
+  it("should delete all done entries when delete all entries button is clicked", async () => {
+    mockUseAllEntries.mockReturnValue({
+      todoEntries: [],
+      doneEntries: [mockDoneEntry],
+      error: undefined,
+    });
 
-    renderComponent({ entries: [mockEntry], onDeleteAllEntries });
+    renderComponent({ type: "done" });
 
     await userEvent.click(screen.getByRole("button", { name: /delete all/i }));
     await userEvent.click(screen.getByRole("button", { name: /yes/i }));
 
-    expect(onDeleteAllEntries).toHaveBeenCalled();
+    expect(mockDeleteEntry).toHaveBeenCalledWith(mockDoneEntry.id);
   });
 
-  it("should render each entry as an list item", () => {
-    renderComponent({
-      entries: [
-        { ...mockEntry, id: "1" },
-        { ...mockEntry, id: "2" },
-        { ...mockEntry, id: "3" },
+  it("should render each entry as an list item", async () => {
+    mockUseAllEntries.mockReturnValue({
+      todoEntries: [
+        { ...mockTodoEntry, id: "1" },
+        { ...mockTodoEntry, id: "2" },
+        { ...mockTodoEntry, id: "3" },
       ],
+      doneEntries: [],
+      error: undefined,
     });
 
-    expect(screen.queryAllByRole("listitem")).toHaveLength(3);
+    renderComponent({ type: "todo" });
+
+    await waitFor(() => {
+      expect(screen.queryAllByRole("listitem")).toHaveLength(3);
+    });
   });
 
-  it("should invoke `onEntryDelete` callback when delete button is clicked on an entry", async () => {
-    const onEntryDelete = vi.fn(() => Promise.resolve());
+  it("should delete an entry when delete button is clicked", async () => {
+    mockUseAllEntries.mockReturnValue({
+      todoEntries: [mockTodoEntry],
+      doneEntries: [],
+      error: undefined,
+    });
 
-    renderComponent({ entries: [mockEntry], onEntryDelete });
+    renderComponent({ type: "todo" });
 
-    await userEvent.click(screen.getByTestId("delete-button"));
+    await userEvent.click(await screen.findByTestId("delete-button"));
 
-    expect(onEntryDelete).toBeCalledWith(mockEntry);
+    expect(mockDeleteEntry).toHaveBeenCalledWith(mockTodoEntry.id);
   });
 
-  it("should invoke `onEntrySelect` callback when entry is double clicked", async () => {
-    const onEntrySelect = vi.fn(() => Promise.resolve());
+  it("should navigate to edit view when entry is double clicked", async () => {
+    mockUseAllEntries.mockReturnValue({
+      todoEntries: [mockTodoEntry],
+      doneEntries: [],
+      error: undefined,
+    });
 
-    renderComponent({ entries: [mockEntry], onEntrySelect });
+    renderComponent({ type: "todo" });
 
     await userEvent.pointer({
       keys: "[MouseLeft][MouseLeft]",
-      target: screen.getByRole("listitem"),
+      target: await screen.findByRole("listitem"),
     });
 
-    expect(onEntrySelect).toBeCalledWith(mockEntry);
+    expect(screen.getByText("Edit view")).toBeInTheDocument();
   });
 
-  it("should invoke `onToggle` callback when entry checkbox is clicked", async () => {
-    const onEntryToggle = vi.fn(() => Promise.resolve());
+  it("should toggle an entry when checkbox is clicked", async () => {
+    mockUseAllEntries.mockReturnValue({
+      todoEntries: [mockTodoEntry],
+      doneEntries: [],
+      error: undefined,
+    });
 
-    renderComponent({ entries: [mockEntry], onEntryToggle });
+    renderComponent({ type: "todo" });
 
-    await userEvent.click(screen.getByRole("checkbox"));
+    await userEvent.click(await screen.findByRole("checkbox"));
 
-    expect(onEntryToggle).toBeCalledWith(mockEntry);
+    expect(mockPatchEntry).toHaveBeenCalledWith(mockTodoEntry.id, {
+      ...mockTodoEntry,
+      done: true,
+    });
   });
 });

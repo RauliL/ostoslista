@@ -7,6 +7,7 @@
   "deleteAllConfirmation": "Haluatko varmasti poistaa kaikki valmiiksi merkityt kohteet?",
   "editEntry": "Muokkaa",
   "no": "Ei",
+  "notFound": "404 – Sivua ei löydy",
   "text": "Teksti",
   "url": "Verkko-osoite",
   "unableToSaveChanges": "Tallentaminen epäonnistui.",

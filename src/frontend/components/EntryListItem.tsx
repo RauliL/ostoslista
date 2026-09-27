@@ -8,12 +8,12 @@ import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PreviewIcon from "@mui/icons-material/PreviewOutlined";
 import React, { FunctionComponent, useState } from "react";
+import { Link, generatePath, useNavigate } from "react-router-dom";
 
 import { SavedEntry } from "../types";
 
 export type EntryListItemProps = {
   entry: SavedEntry;
-  onSelect: () => void;
   onToggle: () => Promise<void>;
   onDelete: () => Promise<void>;
 };
@@ -26,9 +26,10 @@ type EntryListItemButtons = {
 export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
   entry,
   onDelete,
-  onSelect,
   onToggle,
 }) => {
+  const navigate = useNavigate();
+  const editPath = generatePath("/edit/:id", { id: entry.id });
   const [disabledButtons, setDisabledButtons] = useState<EntryListItemButtons>(
     {
       delete: false,
@@ -51,8 +52,12 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
       );
     };
 
+  const handleDoubleClick = () => {
+    navigate(editPath);
+  };
+
   return (
-    <ListItemButton onDoubleClick={onSelect} role="listitem">
+    <ListItemButton onDoubleClick={handleDoubleClick} role="listitem">
       <ListItemIcon>
         <IconButton
           onClick={handleButtonClick(onToggle, "toggle")}
@@ -66,7 +71,16 @@ export const EntryListItem: FunctionComponent<EntryListItemProps> = ({
           )}
         </IconButton>
       </ListItemIcon>
-      <ListItemText primary={entry.text} />
+      <ListItemText
+        primary={
+          <Link
+            to={editPath}
+            style={{ color: "inherit", textDecoration: "none" }}
+          >
+            {entry.text}
+          </Link>
+        }
+      />
       <ListItemSecondaryAction>
         {entry.url && (
           <IconButton

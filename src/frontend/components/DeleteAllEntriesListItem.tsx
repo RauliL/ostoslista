@@ -6,9 +6,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import React, { FunctionComponent, useState } from "react";
 import { FormattedMessage } from "react-intl";
 
-import { DeleteAllConfirmationDialog } from "./dialog";
+import { DeleteAllConfirmationDialog } from "./DeleteAllConfirmationDialog";
 
-export type DeleteAllEntriesListItemProps = {
+type DeleteAllEntriesListItemProps = {
   onClick: () => Promise<void>;
 };
 

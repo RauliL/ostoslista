@@ -1,4 +1,5 @@
 import axios from "axios";
+import { mutate } from "swr";
 
 import { Entry, SavedEntry } from "./types";
 
@@ -9,13 +10,28 @@ export const getAllEntries = (): Promise<SavedEntry[]> =>
       Object.entries(response.data).map(([id, entry]) => ({ ...entry, id })),
     );
 
-export const createEntry = (text: string, url?: string): Promise<string> =>
+export const createEntry = (
+  text: string,
+  url?: string | null,
+): Promise<string> =>
   axios
     .post<{ key: string }>("/api", { text, done: false, url })
-    .then((response) => response.data.key);
+    .then(async (response) => {
+      await mutate("entries");
+
+      return response.data.key;
+    });
 
 export const patchEntry = (id: string, entry: Entry): Promise<Entry> =>
-  axios.patch<Entry>(`/api/${id}`, entry).then((response) => response.data);
+  axios.patch<Entry>(`/api/${id}`, entry).then(async (response) => {
+    await mutate("entries");
+
+    return response.data;
+  });
 
 export const deleteEntry = (id: string): Promise<Entry> =>
-  axios.delete<Entry>(`/api/${id}`).then((response) => response.data);
+  axios.delete<Entry>(`/api/${id}`).then(async (response) => {
+    await mutate("entries");
+
+    return response.data;
+  });

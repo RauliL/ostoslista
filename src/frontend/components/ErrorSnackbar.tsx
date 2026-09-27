@@ -23,22 +23,24 @@ export const ErrorSnackbar: FunctionComponent<ErrorSnackbarProps> = ({
   return (
     <Snackbar
       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      action={
-        <IconButton
-          size="small"
-          aria-label="close"
-          color="inherit"
-          onClick={handleClose}
-          data-testid="close-button"
-        >
-          <CloseIcon fontSize="small" />
-        </IconButton>
-      }
       open={open}
       autoHideDuration={6000}
       onClose={handleClose}
     >
-      <Alert severity="error">
+      <Alert
+        severity="error"
+        action={
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+            data-testid="close-button"
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        }
+      >
         <FormattedMessage
           id="apiError"
           defaultMessage="API returned erroneous response."

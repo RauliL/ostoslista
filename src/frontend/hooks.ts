@@ -1,27 +1,37 @@
 import { partition } from "lodash-es";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import useSWR from "swr";
 
 import { getAllEntries } from "./api";
 import { SavedEntry } from "./types";
 
+const EMPTY_ENTRIES: SavedEntry[] = [];
+
 export const useAllEntries = (): {
   todoEntries: SavedEntry[];
   doneEntries: SavedEntry[];
   error: Error | undefined;
+  isLoading: boolean;
 } => {
-  const { data, error } = useSWR("entries", getAllEntries);
-  const [todoEntries, setTodoEntries] = useState<SavedEntry[]>([]);
-  const [doneEntries, setDoneEntries] = useState<SavedEntry[]>([]);
+  const { data, error, isLoading } = useSWR("entries", getAllEntries);
+  const [doneEntries, todoEntries] = useMemo(
+    () =>
+      data != null ? partition(data, "done") : [EMPTY_ENTRIES, EMPTY_ENTRIES],
+    [data],
+  );
 
-  useEffect(() => {
-    if (data != null) {
-      const [doneEntries, todoEntries] = partition(data, "done");
+  return { todoEntries, doneEntries, error, isLoading };
+};
 
-      setTodoEntries(todoEntries);
-      setDoneEntries(doneEntries);
-    }
-  }, [data]);
+export const useEntry = (
+  id?: string,
+): { entry: SavedEntry | undefined; isLoading: boolean } => {
+  const { todoEntries, doneEntries, isLoading } = useAllEntries();
 
-  return { todoEntries, doneEntries, error };
+  return {
+    entry:
+      todoEntries.find((e) => e.id === id) ??
+      doneEntries.find((e) => e.id === id),
+    isLoading,
+  };
 };

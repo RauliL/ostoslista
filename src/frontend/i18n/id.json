@@ -7,6 +7,7 @@
   "deleteAllConfirmation": "Apakah Anda yakin ingin menghapus semua entri yang ditandai selesai?",
   "editEntry": "Ubah entri",
   "no": "Tidak",
+  "notFound": "404 – Halaman tidak ditemukan",
   "text": "Teks",
   "url": "URL",
   "unableToSaveChanges": "Tidak dapat menyimpan perubahan.",

@@ -5,7 +5,7 @@ import DialogContent from "@mui/material/DialogContent";
 import React, { FunctionComponent } from "react";
 import { FormattedMessage } from "react-intl";
 
-export type DeleteAllConfirmationDialogProps = {
+type DeleteAllConfirmationDialogProps = {
   onAnswer: (answer: boolean) => void;
   open: boolean;
 };
