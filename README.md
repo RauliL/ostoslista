@@ -1,4 +1,11 @@
-# Ostoslista
+# Ostoslista [![github-url][github-image]][github-url] [![coveralls][coveralls-image]][coveralls-url] [![npm][npm-image]][npm-url]
+
+[github-image]: https://github.com/RauliL/ostoslista/actions/workflows/lint-and-build.yml/badge.svg
+[github-url]: https://github.com/RauliL/ostoslista/actions/workflows/lint-and-build.yml
+[coveralls-image]: https://coveralls.io/repos/github/RauliL/ostoslista/badge.svg
+[coveralls-url]: https://coveralls.io/github/RauliL/ostoslista
+[npm-image]: https://img.shields.io/npm/v/ostoslista.svg
+[npm-url]: https://npmjs.org/package/ostoslista
 
 Simple shopping list Web application, in which a single shopping list can be
 shared among family members. Uses [Varasto] as storage, while UI has been
