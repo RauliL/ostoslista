@@ -36,9 +36,9 @@ describe("<AddEntryView/>", () => {
   it("should render the add new entry form", () => {
     renderComponent();
 
-    expect(
-      screen.getByRole("heading", { name: /add new entry/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("textbox", { name: /text/i })).toBeInTheDocument();
+    expect(screen.getByRole("textbox", { name: /url/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /add/i })).toBeInTheDocument();
   });
 
   it("should navigate to the todo list when cancel is clicked", async () => {

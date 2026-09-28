@@ -20,20 +20,11 @@ describe("<EntryForm/>", () => {
           initialValues={props.initialValues}
           onCancel={props.onCancel ?? noop}
           onSubmit={props.onSubmit ?? (() => Promise.resolve())}
-          title={props.title ?? "Test title"}
         />
       </IntlProvider>,
     );
 
   afterEach(cleanup);
-
-  it("should render the given title", () => {
-    renderComponent({ title: "Add new entry" });
-
-    expect(
-      screen.getByRole("heading", { name: /add new entry/i }),
-    ).toBeInTheDocument();
-  });
 
   it("should render initial values when given", () => {
     renderComponent({
