@@ -40,6 +40,4 @@ port with `PORT` environment variable.
 
 ## Attributions
 
-Icon made by [Freepik] from [www.flaticon.com](https://www.flaticon.com).
-
-[Freepik]: https://www.flaticon.com/authors/freepik
+Icon by [Read] on [freeicons.io](https://freeicons.io)
