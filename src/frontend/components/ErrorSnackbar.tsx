@@ -1,7 +1,7 @@
+import CloseIcon from "@mui/icons-material/Close";
 import Alert from "@mui/material/Alert";
 import IconButton from "@mui/material/IconButton";
 import Snackbar from "@mui/material/Snackbar";
-import CloseIcon from "@mui/icons-material/Close";
 import React, { FunctionComponent, SyntheticEvent } from "react";
 import { FormattedMessage } from "react-intl";
 

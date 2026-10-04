@@ -1,8 +1,8 @@
 import js from "@eslint/js";
-import globals from "globals";
 import pluginReact from "eslint-plugin-react";
-import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 const srcFiles = ["src/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"];
 const reactFiles = ["src/**/*.{jsx,tsx}"];

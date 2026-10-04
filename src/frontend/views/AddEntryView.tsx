@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { EntryForm, EntryFormValues } from "../components";
 import { createEntry } from "../api";
+import { EntryForm, EntryFormValues } from "../components";
 
 export const AddEntryView: FunctionComponent = () => {
   const navigate = useNavigate();

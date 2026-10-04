@@ -1,5 +1,5 @@
-import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import CssBaseline from "@mui/material/CssBaseline";
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import { ThemeProvider } from "@mui/material/styles";
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";

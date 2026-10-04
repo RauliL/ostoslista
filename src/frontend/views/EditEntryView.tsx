@@ -3,8 +3,8 @@ import Container from "@mui/material/Container";
 import React, { FunctionComponent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { EntryForm, EntryFormValues } from "../components";
 import { patchEntry } from "../api";
+import { EntryForm, EntryFormValues } from "../components";
 import { useEntry } from "../hooks";
 import { NotFoundView } from "./NotFoundView";
 

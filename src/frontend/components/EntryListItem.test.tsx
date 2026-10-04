@@ -4,8 +4,8 @@ import React from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { EntryListItem, EntryListItemProps } from "./EntryListItem";
 import { SavedEntry } from "../types";
+import { EntryListItem, EntryListItemProps } from "./EntryListItem";
 
 const mockEntry: Readonly<SavedEntry> = {
   id: "153511a8-4439-11f0-b6a8-dfe4dbf5c378",
