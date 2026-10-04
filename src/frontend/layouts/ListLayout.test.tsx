@@ -1,24 +1,47 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
+import { IntlProvider } from "react-intl";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import { useAuth } from "../context";
 import { ListLayout } from "./ListLayout";
+
+vi.mock("../context/AuthContext", () => ({
+  useAuth: vi.fn(),
+}));
+
+const mockUseAuth = vi.mocked(useAuth);
 
 describe("<ListLayout/>", () => {
   const renderComponent = (path = "/todo") =>
     render(
       <MemoryRouter initialEntries={[path]}>
-        <Routes>
-          <Route element={<ListLayout />}>
-            <Route path="/todo" element={<div>Todo view</div>} />
-            <Route path="/done" element={<div>Done view</div>} />
-          </Route>
-          <Route path="/add" element={<div>Add view</div>} />
-        </Routes>
+        <IntlProvider locale="en">
+          <Routes>
+            <Route element={<ListLayout />}>
+              <Route path="/todo" element={<div>Todo view</div>} />
+              <Route path="/done" element={<div>Done view</div>} />
+            </Route>
+            <Route path="/add" element={<div>Add view</div>} />
+            <Route path="/login" element={<div>Login view</div>} />
+            <Route path="/admin/users" element={<div>Admin view</div>} />
+          </Routes>
+        </IntlProvider>
       </MemoryRouter>,
     );
+
+  beforeEach(() => {
+    mockUseAuth.mockReturnValue({
+      user: { username: "alice", isAdmin: false },
+      loading: false,
+      error: null,
+      login: vi.fn(),
+      logout: vi.fn(),
+      clearError: vi.fn(),
+    });
+  });
 
   afterEach(cleanup);
 
@@ -102,5 +125,42 @@ describe("<ListLayout/>", () => {
     await userEvent.click(screen.getByRole("link", { name: /todo/i }));
 
     expect(screen.getByText("Todo view")).toBeInTheDocument();
+  });
+
+  it("should show the admin link for administrators", () => {
+    mockUseAuth.mockReturnValue({
+      user: { username: "admin", isAdmin: true },
+      loading: false,
+      error: null,
+      login: vi.fn(),
+      logout: vi.fn(),
+      clearError: vi.fn(),
+    });
+
+    renderComponent();
+
+    expect(screen.getByLabelText("Admin").closest("a")).toHaveAttribute(
+      "href",
+      "/admin/users",
+    );
+  });
+
+  it("should call logout and navigate to login when sign out is clicked", async () => {
+    const logout = vi.fn();
+    mockUseAuth.mockReturnValue({
+      user: { username: "alice", isAdmin: false },
+      loading: false,
+      error: null,
+      login: vi.fn(),
+      logout,
+      clearError: vi.fn(),
+    });
+
+    renderComponent();
+
+    await userEvent.click(screen.getByLabelText("Sign out"));
+
+    expect(logout).toHaveBeenCalled();
+    expect(screen.getByText("Login view")).toBeInTheDocument();
   });
 });

@@ -7,6 +7,7 @@ import { IntlProvider } from "react-intl";
 import { BrowserRouter } from "react-router-dom";
 
 import { App } from "./App";
+import { AuthProvider } from "./context";
 import { getBrowserLanguage, translations } from "./i18n";
 import { theme } from "./theme";
 
@@ -20,9 +21,11 @@ root.render(
     <ThemeProvider theme={theme}>
       <CssBaseline enableColorScheme />
       <IntlProvider locale={language} messages={translations[language]}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <AuthProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </AuthProvider>
       </IntlProvider>
     </ThemeProvider>
   </StrictMode>,

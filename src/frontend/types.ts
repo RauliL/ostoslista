@@ -1,3 +1,15 @@
+import { PublicUser } from "express-varasto-jwt-auth";
+
+export type LoginRequest = {
+  username: string;
+  password: string;
+};
+
+export type LoginResponse = {
+  token: string;
+  user: PublicUser;
+};
+
 export type Entry = {
   text: string;
   done: boolean;

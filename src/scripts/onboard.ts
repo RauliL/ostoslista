@@ -1,0 +1,90 @@
+import {
+  UserValidationError,
+  isValidUsername,
+} from "express-varasto-jwt-auth";
+import prompts from "prompts";
+
+import {
+  InitializeError,
+  initializeApplication,
+} from "../backend/initialize.js";
+
+async function promptForInitializeOptions() {
+  let adminPassword = "";
+
+  const response = await prompts(
+    [
+      {
+        type: "text",
+        name: "username",
+        message: "Admin username",
+        initial: "admin",
+        validate: (value: string) =>
+          isValidUsername(value.trim())
+            ? true
+            : "Username must be a valid slug (lowercase letters, numbers, and hyphens).",
+      },
+      {
+        type: "password",
+        name: "password",
+        message: "Admin password",
+        validate: (value: string) => {
+          if (value.length < 8) {
+            return "Password must be at least 8 characters.";
+          }
+
+          adminPassword = value;
+          return true;
+        },
+      },
+      {
+        type: "password",
+        name: "confirmPassword",
+        message: "Confirm admin password",
+        validate: (value: string) =>
+          value === adminPassword || "Passwords do not match.",
+      },
+    ],
+    {
+      onCancel: () => {
+        console.log("Onboarding cancelled.");
+        process.exit(0);
+      },
+    },
+  );
+
+  if (!response.username || !response.password) {
+    process.exit(0);
+  }
+
+  return {
+    username: response.username,
+    password: response.password,
+  };
+}
+
+async function main() {
+  try {
+    const options = await promptForInitializeOptions();
+    const { user } = await initializeApplication(options);
+
+    console.log(`Created admin user "${user.username}".`);
+    console.log("You can now start Ostoslista and sign in.");
+  } catch (error) {
+    if (error instanceof InitializeError) {
+      console.error(error.message);
+      process.exit(1);
+      return;
+    }
+
+    if (error instanceof UserValidationError) {
+      console.error(error.message);
+      process.exit(1);
+      return;
+    }
+
+    throw error;
+  }
+}
+
+await main();

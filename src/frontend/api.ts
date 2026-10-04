@@ -1,6 +1,7 @@
 import axios from "axios";
 import { mutate } from "swr";
 
+import "./authToken";
 import { Entry, SavedEntry } from "./types";
 
 export const getAllEntries = (): Promise<SavedEntry[]> =>
